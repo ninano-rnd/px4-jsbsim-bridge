@@ -1,0 +1,94 @@
+<!--
+    Propulsion for BUBO_4s quadrotor (X-layout)
+    Motor: T-Motor MN4006 380KV (file: Engines/T-MOTOR_MN4006.xml)
+    Propeller: MF1503 15×5.4 (file: Engines/prop_mf1503_15x5.4.xml)
+
+    Motor layout (half-spacing from CG):
+      Longitudinal: ±0.230 m = ±0.7546 ft
+      Lateral:      ±0.2275 m = ±0.7464 ft
+      Vertical:      +0.050 m = +0.0984 ft (motors slightly above CG)
+
+    Rotation directions (X-layout, viewed from above):
+      Motor 0 FR: Counter-Clockwise (sense =  1)
+      Motor 1 RL: Counter-Clockwise (sense =  1)
+      Motor 2 FL: Clockwise         (sense = -1)
+      Motor 3 RR: Clockwise         (sense = -1)
+
+    Thrust axis: +Z (up) for all motors → pitch = -90 deg in JSBSim body frame
+    (JSBSim ELECTRIC engine thrust is along -X of thruster, rotated -90 in pitch = up)
+-->
+<propulsion>
+
+    <!-- Motor 0: Front-Right (Counter-Clockwise) -->
+    <engine file="T-MOTOR_MN4006" name="motor_0_FR">
+        <thruster file="prop_mf1503_15x5.4">
+            <location unit="M">
+                <x> -0.2300 </x>  <!-- -0.230 m (Front) -->
+                <y>  0.2275 </y>  <!-- +0.2275 m (Right) -->
+                <z>  0.0500 </z>  <!-- +0.050 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>  <!-- Thrust points +Z (up) -->
+                <yaw>    0 </yaw>
+            </orient>
+            <sense>  1 </sense>   <!-- Counter-Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 1: Rear-Left (Counter-Clockwise) -->
+    <engine file="T-MOTOR_MN4006" name="motor_1_RL">
+        <thruster file="prop_mf1503_15x5.4">
+            <location unit="M">
+                <x>  0.2300 </x>  <!-- +0.230 m (Rear) -->
+                <y> -0.2275 </y>  <!-- -0.2275 m (Left) -->
+                <z>  0.0500 </z>  <!-- +0.050 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense>  1 </sense>   <!-- Counter-Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 2: Front-Left (Clockwise) -->
+    <engine file="T-MOTOR_MN4006" name="motor_2_FL">
+        <thruster file="prop_mf1503_15x5.4">
+            <location unit="M">
+                <x> -0.2300 </x>  <!-- -0.230 m (Front) -->
+                <y> -0.2275 </y>  <!-- -0.2275 m (Left) -->
+                <z>  0.0500 </z>  <!-- +0.050 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense> -1 </sense>   <!-- Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 3: Rear-Right (Clockwise) -->
+    <engine file="T-MOTOR_MN4006" name="motor_3_RR">
+        <thruster file="prop_mf1503_15x5.4">
+            <location unit="M">
+                <x>  0.2300 </x>  <!-- +0.230 m (Rear) -->
+                <y>  0.2275 </y>  <!-- +0.2275 m (Right) -->
+                <z>  0.0500 </z>  <!-- +0.050 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense> -1 </sense>   <!-- Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+</propulsion>

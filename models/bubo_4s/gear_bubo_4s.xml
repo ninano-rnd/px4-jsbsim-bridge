@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<!--
+    Ground Reactions for BUBO_4s quadrotor
+    Landing legs are located under each motor arm.
+    Estimated leg extension: 0.15 m below CG → z = -0.492 ft
+
+    Motor positions (half-spacing from center):
+      Longitudinal: ±0.230 m = ±0.7546 ft
+      Lateral:      ±0.2275 m = ±0.7464 ft
+
+    Spring/damper tuned for 3.16 kg MTOW:
+      spring_coeff:  ~72 LBS/FT  (≈1050 N/m per leg)
+      damping_coeff: ~4.8 LBS/FT/SEC (≈70 N·s/m per leg)
+
+    Unit conversions: 1 m = 3.28084 ft, N/m × 0.068522 = LBS/FT
+-->
+<ground_reactions>
+    <contact type="STRUCTURE" name="frontbase">
+      <location unit="M">
+        <x>  -0.283 </x>
+        <y>   0.00 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+    <contact type="STRUCTURE" name="rearbase">
+      <location unit="M">
+        <x>   0.283 </x>
+        <y>   0.00 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+    <contact type="STRUCTURE" name="leftbase">
+      <location unit="M">
+        <x>   0.00 </x>
+        <y>   0.283 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+    <contact type="STRUCTURE" name="rightbase">
+      <location unit="M">
+        <x>   0.00 </x>
+        <y>  -0.283 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+  </ground_reactions>

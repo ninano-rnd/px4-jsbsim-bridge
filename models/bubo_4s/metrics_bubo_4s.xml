@@ -1,0 +1,41 @@
+<!--
+    Metrics for BUBO_4s quadrotor
+    Type: Multicopter (X-layout), no lifting surfaces
+    Wing area / span / chord are placeholder minimums for JSBSim.
+
+    Aircraft: BUBO_4s
+    MTOW: 3.16 kg
+    Motor arm (longitudinal half): 230 mm = 0.7546 ft
+    Motor arm (lateral half):      227.5 mm = 0.7464 ft
+
+    Unit conversions used: 1 m = 3.28084 ft, 1 m² = 10.7639 ft²
+-->
+<metrics>
+    <!-- Placeholder values: multirotor has no meaningful wing geometry -->
+    <wingarea unit="M2">  0.001  </wingarea>  <!-- 0.001 m² -->
+    <wingspan unit="M">   0.100  </wingspan>  <!-- 0.100 m -->
+    <chord    unit="M">   0.010  </chord>     <!-- 0.010 m -->
+
+    <!-- No horizontal/vertical tail -->
+    <htailarea unit="FT2"> 0.000 </htailarea>
+    <htailarm  unit="FT">  0.000 </htailarm>
+    <vtailarea unit="FT2"> 0.000 </vtailarea>
+    <vtailarm  unit="FT">  0.000 </vtailarm>
+
+    <!-- Aerodynamic reference point at body center -->
+    <location name="AERORP" unit="M">
+        <x> 0.000 </x>
+        <y> 0.000 </y>
+        <z> 0.20 </z>
+    </location>
+    <location name="EYEPOINT" unit="M">
+        <x> 0.000 </x>
+        <y> 0.000 </y>
+        <z> 0.20 </z>
+    </location>
+    <location name="VRP" unit="M">
+        <x> 0.000 </x>
+        <y> 0.000 </y>
+        <z> 0.20 </z>
+    </location>
+</metrics>

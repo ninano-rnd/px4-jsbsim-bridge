@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<brushless_dc_motor name="t-motor_mn4006_bldc">
+  <!-- T-MOTOR MN4006 380KV motor -->
+  <!-- 380KV = 380 RPM per volt -->
+  <!-- Max voltage: ~25.2V (6S LiPo) -->
+  <!-- Max RPM: 380 × 25.2 = 13860 RPM -->
+  <velocityconstant> 380 </velocityconstant>
+  <coilresistance>0.159</coilresistance>
+  <noloadcurrent>0.7</noloadcurrent>
+  <maxvolts> 25.0 </maxvolts>
+</brushless_dc_motor>

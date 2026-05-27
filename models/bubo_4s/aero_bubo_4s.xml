@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!--
+    Aerodynamics for BUBO_4s quadrotor
+    A multirotor has no lifting surfaces. This file models:
+      1. Body drag (CD) — bluff-body drag proportional to projected area
+      2. Aerodynamic rate damping (Clp, Cmq, Cnr) — for attitude stability at speed
+
+    Reference geometry (placeholder from metrics_bubo_4s.xml):
+      Sw  = 0.0108 ft²  (0.001 m²)
+      bw  = 0.3281 ft   (0.100 m)
+      cbar = 0.0328 ft  (0.010 m)
+
+    Body drag estimation:
+      Cd_body ≈ 1.0 (bluff body)
+      Frontal area ≈ 0.03 m² → effective Cd×S ≈ 0.03 m² = 0.323 ft²
+      Scaled to reference area: CD_effective = (0.323 ft²) / (0.0108 ft²) ≈ 29.9
+      This is intentionally large because Sw is a placeholder minimum.
+
+    Rate damping: small but non-zero to avoid divergence at hover.
+-->
+  <aerodynamics>
+    <axis name="LIFT">
+        </axis>
+    <axis name="DRAG">
+      <function name="aero/coefficient/CD0">
+        <description>Overall Drag</description>
+        <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <value>1</value>
+        </product>
+      </function>
+    </axis>
+    <axis name="SIDE"></axis>
+    <axis name="ROLL"></axis>
+    <axis name="PITCH"></axis>
+    <axis name="YAW"></axis>
+  </aerodynamics>

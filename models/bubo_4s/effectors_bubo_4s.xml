@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<!--
+    Effectors (ESC channel mapping) for BUBO_4s quadrotor
+    Maps PX4 actuator outputs → JSBSim throttle positions
+
+    Channel assignment (matches PX4 jsbsim_bridge actuator order):
+      esc-cmd-norm[0] → Motor 0 FR (fcs/throttle-pos-norm[0])
+      esc-cmd-norm[1] → Motor 1 RL (fcs/throttle-pos-norm[1])
+      esc-cmd-norm[2] → Motor 2 FL (fcs/throttle-pos-norm[2])
+      esc-cmd-norm[3] → Motor 3 RR (fcs/throttle-pos-norm[3])
+
+    Input range: 0.0 – 1.0 (normalized throttle from PX4)
+-->
+<system name="Effectors">
+
+    <property value="0.0">fcs/esc-cmd-norm[0]</property>
+    <property value="0.0">fcs/esc-cmd-norm[1]</property>
+    <property value="0.0">fcs/esc-cmd-norm[2]</property>
+    <property value="0.0">fcs/esc-cmd-norm[3]</property>
+
+    <!-- Motor_0_FR_CCW -->
+    <channel name="Motor_0">
+        <actuator name="fcs/etc/esc_0">
+            <input>fcs/esc-cmd-norm[0]</input>
+            <clipto>
+                <min> 0.0 </min>
+                <max> 1.0 </max>
+            </clipto>
+            <output>fcs/throttle-cmd-norm[0]</output>
+        </actuator>
+    </channel>
+
+    <!-- Motor_1_RL_CCW -->
+    <channel name="Motor_1">
+        <actuator name="fcs/etc/esc_1">
+            <input>fcs/esc-cmd-norm[1]</input>
+            <clipto>
+                <min> 0.0 </min>
+                <max> 1.0 </max>
+            </clipto>
+            <output>fcs/throttle-cmd-norm[1]</output>
+        </actuator>
+    </channel>
+
+    <!-- Motor_2_FL_CW -->
+    <channel name="Motor_2">
+        <actuator name="fcs/etc/esc_2">
+            <input>fcs/esc-cmd-norm[2]</input>
+            <clipto>
+                <min> 0.0 </min>
+                <max> 1.0 </max>
+            </clipto>
+            <output>fcs/throttle-cmd-norm[2]</output>
+        </actuator>
+    </channel>
+
+    <!-- Motor_3_RR_CW -->
+    <channel name="Motor_3">
+        <actuator name="fcs/etc/esc_3">
+            <input>fcs/esc-cmd-norm[3]</input>
+            <clipto>
+                <min> 0.0 </min>
+                <max> 1.0 </max>
+            </clipto>
+            <output>fcs/throttle-cmd-norm[3]</output>
+        </actuator>
+    </channel>
+
+</system>

@@ -1,0 +1,43 @@
+<mass_balance>
+    <!--
+        BUBO_4s Mass & Inertia
+        MTOW: 3.16 kg = 6.967 lbs (incl. 0.4 kg payload)
+        Empty weight (no payload): 2.76 kg = 6.085 lbs
+
+        Inertia estimated from motor geometry:
+          Motor arm longitudinal: 0.230 m, lateral: 0.2275 m
+          Motor mass ≈ 0.10 kg × 4 = 0.40 kg
+          Body contribution estimated
+
+        Ixx (kg·m²) = 4 × 0.10 × 0.2275² + 0.006 ≈ 0.0267 kg·m²  → 0.0197 SLUG·FT²
+        Iyy (kg·m²) = 4 × 0.10 × 0.2300² + 0.006 ≈ 0.0272 kg·m²  → 0.0201 SLUG·FT²
+        Izz (kg·m²) ≈ Ixx + Iyy              ≈ 0.0539 kg·m²  → 0.0397 SLUG·FT²
+
+        Unit conversion: kg·m² × 0.737562 = SLUG·FT²
+    -->
+    <emptywt unit="KG"> 2.76 </emptywt>  <!-- 2.76 kg (empty, no payload) -->
+
+    <!-- CG at body geometric center -->
+    <location name="CG" unit="M">
+        <x> 0.000 </x>
+        <y> 0.000 </y>
+        <z> 0.20 </z>
+    </location>
+
+    <ixx unit="KG*M2"> 0.0267 </ixx>  <!-- roll  inertia -->
+    <iyy unit="KG*M2"> 0.0272 </iyy>  <!-- pitch inertia -->
+    <izz unit="KG*M2"> 0.0539 </izz>  <!-- yaw   inertia -->
+    <ixy unit="KG*M2"> 0.0000 </ixy>
+    <ixz unit="KG*M2"> 0.0000 </ixz>
+    <iyz unit="KG*M2"> 0.0000 </iyz>
+
+    <!-- 0.4 kg payload mass, assumed at CG center -->
+    <pointmass name="Payload">
+        <weight unit="KG"> 0.4 </weight>  <!-- 0.4 kg -->
+        <location name="POINTMASS" unit="M">
+            <x> 0.000 </x>
+            <y> 0.000 </y>
+            <z> 0.10 </z>
+        </location>
+    </pointmass>
+</mass_balance>

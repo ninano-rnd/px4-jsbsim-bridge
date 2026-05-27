@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSim.xsl"?>
+<fdm_config name="goshawk 10s" release="BETA" version="2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sourceforge.net/JSBSim.xsd">
+
+    <fileheader>
+        <author>Geunchan Kim</author>
+        <filecreationdate>2026-05-26</filecreationdate>
+        <version>$Revision: 1.0 $</version>
+        <description>Models a BUBO_4s for surveilance</description>
+        <license>
+            <licenseName>GPL (General Public License)</licenseName>
+            <licenseURL>http://www.gnu.org/licenses/gpl.html</licenseURL>
+        </license>
+        <note>
+            This model represents the BUBO Quadrotor_x aircraft.
+
+            BUBO is model name, 4 means payload 0.4 kg, s means surveilance
+
+            Aircraft Specifications:
+            - Type: quad multi-copter
+            - MTOW: 3.16 kg
+            - Payload: 0.4 kg
+            - Wing Span: 0.1 m
+            - Wing Area: 0.001 m²
+            - Mean Chord: 0.01 m
+            - Cruise Speed: 10 m/s (79.2 km/h)
+            - Endurance: 30 min
+            - Max Altitude: 300 m
+
+            Propulsion:
+            - 4x T-Motor MN4006 380KV brushless motors
+            - Max thrust per motor: 2.2 kg
+            - Total max thrust: 8.92 kg
+            - Max power per motor: 360 W
+            - Battery: 6S LiPo (44.4V nominal)
+
+            Motor Configuration (X-layout):
+            - Motor 0: Front-Right (Counter-Clockwise)
+            - Motor 1: Rear-Left (Counter-Clockwise)
+            - Motor 2: Front-Left (Clockwise)
+            - Motor 3: Rear-Right (Clockwise)
+
+            Motor Physical Layout:
+            - Longitudinal spacing: 460 mm (24.18 in)
+            - Lateral spacing: 455 mm (60.85 in)
+
+            Control:
+            - No traditional control surfaces
+            - Attitude control via differential thrust only
+
+            Coordinate System:
+            - Aircraft oriented as multi-copter
+            - Body frame: X-backward, Y-right wing, Z-up
+        </note>
+    </fileheader>
+
+    <metrics file="metrics_bubo_4s.xml"/>
+    <mass_balance file="mass_bubo_4s.xml"/>
+    <ground_reactions file="gear_bubo_4s.xml"/>
+    <propulsion file="propulsion_bubo_4s.xml"/>
+    <system file="effectors_bubo_4s.xml"/>
+    <aerodynamics file="aero_bubo_4s.xml"/>
+
+    <system file="px4_default_imu_sensor"/>
+    <system file="px4_default_gps_sensor"/>
+    <system file="px4_default_baro_sensor"/>
+
+</fdm_config>

@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+    File:     prop_mf1503_15x5.4.xml
+    Author:   Cheon
+    Date:     2026-03-26
+    Description: mf1503 15×5.4 propeller model for BUBO_4s
+
+    Propeller Specifications:
+    - Model: MF1503 15x5.4
+    - Diameter: 15 inches (0.5334 meters)
+    - Pitch: 5.4 inches (0.1524 meters)
+    - Pitch Ratio: 0.36 (6/12)
+    - Type: multirotor propeller
+    - Blades: 2 (typical for this size)
+
+    Motor: T-motor MN4006 380KV brushless motor
+    - Max voltage: 25.2V (6S LiPo)
+    - Max thrust:   2.2 kg (4.85 lbs) per motor @ 100% throttle
+    - Max power: 350 W
+    - Max RPM: ~6370 RPM (at 6S/25.2V)
+
+    Performance Characteristics:
+    - Low pitch ratio (0.5) optimized for high static thrust
+    - Suitable for hover operations
+    - Good efficiency at low advance ratios
+
+    Notes:
+    - Thrust and power coefficients are estimated based on typical
+      multirotor propeller characteristics
+    - For precise modeling, measured propeller data is recommended
+    - Static thrust matches motor specifications (~2.2 kg per motor)
+-->
+
+<propeller name="prop_mf1503_15x5.4">
+    <!-- Propeller inertia (estimated for 12" carbon fiber propeller) -->
+    <ixx> 0.0002 </ixx> <!-- slug-ft^2 -->
+
+    <!-- Physical dimensions -->
+    <diameter unit="IN"> 15 </diameter>
+    <numblades> 2 </numblades>
+    <gearratio> 1.0 </gearratio> <!-- Direct drive, no gearbox -->
+
+    <!-- Pitch characteristics -->
+    <minpitch> 5.4 </minpitch> <!-- Fixed pitch propeller -->
+    <maxpitch> 5.4 </maxpitch>
+
+    <!-- RPM limits -->
+    <minrpm> 0 </minrpm>
+    <maxrpm> 6177 </maxrpm> <!-- 100% throttle @ 24V from motor test data -->
+
+    <!--
+    Thrust Coefficient Table: C_T vs Advance Ratio (J)
+
+    Advance Ratio: J = V / (n * D)
+    where:
+      V = velocity (ft/s)
+      n = RPM / 60 (revolutions per second)
+      D = diameter (ft)
+
+    For pitch ratio 0.36 (5.4/15):
+    - High static thrust (J=0)
+    - C_T zero crossing around J~0.75
+    - Moderate thrust dropoff with forward speed
+
+    Thrust calculation: T = C_T * ρ * n² * D⁴
+    where ρ = air density (slugs/ft³)
+
+    C_T(J=0) derived from motor test data:
+      T = 2228 g = 4.912 lbf @ 6177 RPM (100% throttle, 24V)
+      C_T = T / (ρ * n² * D⁴) ≈ 0.07877
+    -->
+    <table name="C_THRUST" type="internal">
+        <tableData>
+            0.00    0.07877
+            0.05    0.07528
+            0.10    0.07101
+            0.15    0.06640
+            0.20    0.06155
+            0.25    0.05651
+            0.30    0.05131
+            0.35    0.04598
+            0.40    0.04054
+            0.45    0.03500
+            0.50    0.02936
+            0.55    0.02363
+            0.60    0.01783
+            0.65    0.01195
+            0.70    0.00601
+            0.75    0.00000
+        </tableData>
+    </table>
+
+    <!--
+    Power Coefficient Table: C_P vs Advance Ratio (J)
+
+    Power calculation: P = C_P * ρ * n³ * D⁵
+
+    C_P(J=0) derived from motor test data:
+      P = 360 W = 265.5 ft-lbf/s @ 6177 RPM (100% throttle, 24V)
+      C_P = P / (ρ * n³ * D⁵) ≈ 0.03138
+    -->
+    <table name="C_POWER" type="internal">
+        <tableData>
+            0.00    0.03138
+            0.05    0.03190
+            0.10    0.03242
+            0.15    0.03294
+            0.20    0.03114
+            0.25    0.02907
+            0.30    0.02689
+            0.35    0.02464
+            0.40    0.02233
+            0.45    0.01997
+            0.50    0.01758
+            0.55    0.01514
+            0.60    0.01268
+            0.65    0.01019
+            0.70    0.00768
+            0.75    0.00514
+            0.80    0.00258
+        </tableData>
+    </table>
+
+    <!--
+    Static Performance (sea level, from motor test data @ 24V):
+
+    Throttle  RPM   Thrust(g)  Power(W)  Efficiency(g/W)
+      50%     3746    805        74        10.82
+      55%     4089    959        98         9.75
+      60%     4358   1093       115         9.49
+      65%     4634   1236       139         8.88
+      75%     5215   1561       199         7.84
+      85%     5627   1823       257         7.10
+     100%     6177   2228       360         6.19
+
+    Note: Actual performance will vary with atmospheric conditions,
+    motor voltage, and propeller manufacturing tolerances.
+    -->
+
+</propeller>
