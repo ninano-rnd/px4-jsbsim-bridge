@@ -31,7 +31,7 @@ set(_MAVLINK_EXTRA_SEARCH_PATHS
 # look for in the hints first
 find_path(_MAVLINK_INCLUDE_DIR
     NAMES mavlink_types.h
-    PATH_SUFFIXES include
+    PATH_SUFFIXES include .
     HINTS ${_MAVLINK_EXTRA_SEARCH_HINTS}
     NO_DEFAULT_PATH
     )
