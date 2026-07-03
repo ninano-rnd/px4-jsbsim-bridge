@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSim.xsl"?>
+<fdm_config name="goshawk 10s" release="BETA" version="2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sourceforge.net/JSBSim.xsd">
+
+    <fileheader>
+        <author>Geon-Hong Kim</author>
+        <filecreationdate>2026-03-26</filecreationdate>
+        <version>$Revision: 1.0 $</version>
+        <description>Models a Goshawk 10s tailsitter VTOL</description>
+        <license>
+            <licenseName>GPL (General Public License)</licenseName>
+            <licenseURL>http://www.gnu.org/licenses/gpl.html</licenseURL>
+        </license>
+        <note>
+            This model represents the Goshawk 10s tailsitter VTOL aircraft.
+
+            Aircraft Specifications:
+            - Type: Tailsitter VTOL quadplane
+            - MTOW: 4 kg (8.82 lbs)
+            - Payload: 1 kg (2.21 lbs)
+            - Wing Span: 1.2 m (3.94 ft)
+            - Wing Area: 0.2 m² (2.15 ft²)
+            - Mean Chord: 0.1667 m (0.547 ft)
+            - Aspect Ratio: 7.20
+            - Cruise Speed: 22 m/s (79.2 km/h)
+            - Endurance: 30 min
+            - Max Altitude: 500 m
+
+            Propulsion:
+            - 4x T-Motor AT3520 550KV brushless motors
+            - Max thrust per motor: 11.114 kg (109.1 N)
+            - Total max thrust: 44.456 kg (436.4 N)
+            - Max power per motor: 2685 W
+            - Battery: 12S LiPo (46V nominal)
+
+            Motor Configuration (X-layout):
+            - Motor 0: Front-Right (Counter-Clockwise)
+            - Motor 1: Aft-Left (Counter-Clockwise)
+            - Motor 2: Front-Left (Clockwise)
+            - Motor 3: Aft-Right (Clockwise)
+
+            Motor Physical Layout:
+            - Longitudinal spacing: 614.11 mm (24.18 in)
+            - Lateral spacing: 1545.48 mm (60.85 in)
+
+            Control:
+            - No traditional control surfaces
+            - Attitude control via differential thrust only
+            - Direct motor control via ArduPilot SITL interface
+
+            Coordinate System:
+            - Aircraft oriented as tailsitter (fuselage vertical in hover)
+            - Body frame: X-forward, Y-right wing, Z-down
+            - Hover orientation: pitch -90 degrees from level flight
+        </note>
+    </fileheader>
+
+    <metrics file="metrics_goshawk_10s.xml"/>
+
+    <mass_balance file="mass_goshawk_10s.xml"/>
+
+    <ground_reactions file="gear_goshawk_10s.xml"/>
+
+    <propulsion file="propulsion_goshawk_10s.xml"/>
+
+    <system file="effectors_goshawk_10s.xml"/>
+
+    <aerodynamics file="aero_goshawk_10s.xml"/>
+
+    <system file="px4_default_imu_sensor"/>
+    <system file="px4_default_gps_sensor"/>
+    <system file="px4_default_baro_sensor"/>
+
+    <!-- Attitude debug output via UDP (port 5762) — remove after confirming initial pose -->
+    <output name="localhost" type="SOCKET" protocol="UDP" port="5762" rate="1">
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/psi-deg</property>
+        <property>position/h-sl-meters</property>
+        <property>velocities/vt-fps</property>
+    </output>
+
+</fdm_config>

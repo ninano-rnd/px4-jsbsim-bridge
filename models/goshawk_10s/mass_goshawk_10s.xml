@@ -1,0 +1,22 @@
+<mass_balance>
+    <!-- Realistic inertias for 4kg MTOW tailsitter -->
+    <!-- Calculated from motor positions and body geometry -->
+    <emptywt unit="LBS"> 8.818 </emptywt> <!-- 4.0 kg -->
+    <location name="CG" unit="FT">
+        <x> 0.6562 </x> <!-- 0.200 m × 3.28084 -->
+        <y> 0.000 </y>
+        <z> 0.000 </z>
+    </location>
+    <!-- Inertia: KG*M2 → SLUG*FT2: × 0.737562 × (3.28084²/1) = × 7.37562 -->
+    <ixx unit="SLUG*FT2">  0.177 </ixx>
+    <iyy unit="SLUG*FT2">  0.074 </iyy>
+    <izz unit="SLUG*FT2">  0.183 </izz>
+    <ixy unit="SLUG*FT2">  0.000 </ixy>
+    <ixz unit="SLUG*FT2">  0.000 </ixz>
+    <iyz unit="SLUG*FT2">  0.000 </iyz>
+    <!-- <orient unit="DEG">
+        <roll> 0 </roll>
+        <pitch> 90 </pitch>
+        <yaw> 0 </yaw>
+    </orient> -->
+</mass_balance>

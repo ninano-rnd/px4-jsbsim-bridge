@@ -1,0 +1,256 @@
+<?xml version="1.0" ?>
+<!--
+    Aerodynamics for Goshawk 10s tailsitter VTOL
+    Based on Rascal 110 aero data, adapted for:
+      - Wing area: 0.2 m² (2.15 ft²)
+      - Wingspan: 1.2 m (3.94 ft)
+      - Mean chord: 0.1667 m (0.547 ft)
+      - AR: 7.20
+      - MTOW: 4 kg (8.82 lbs)
+      - No tail surfaces (differential thrust for yaw)
+    Rate damping retained for hover (zero-airspeed) stability.
+    Uses JSBSim standard units: qbar-psf, Sw-sqft, bw-ft, cbarw-ft
+-->
+<aerodynamics>
+
+    <!-- ============== DRAG ============== -->
+    <axis name="DRAG">
+        <function name="aero/coefficient/CDalpha">
+            <description>Drag Coefficient with AoA(alpha)</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <table>
+                    <independentVar lookup="row">aero/alpha-deg</independentVar>
+                    <tableData>
+						-90	1.2928
+                        -60	1.1287
+                        -30	0.6001
+                        -20	0.3674
+                        -16	0.2817
+                        -12	0.2144
+                        -8	0.1476
+                        -4	0.1089
+                        0	0.1029
+                        4	0.1117
+                        8	0.1347
+                        12	0.1715
+                        16	0.2405
+                        20	0.3240
+                        30	0.5508
+                        60	1.1791
+                        90	1.3690
+                    </tableData>
+                </table>
+            </product>
+        </function>
+        <function name="aero/coefficient/CDbeta">
+            <description>Drag_due_to_sideslip</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <table>
+                    <independentVar>aero/beta-deg</independentVar>
+                    <tableData>
+                        -90	0.3388
+                        -70	0.4930
+                        -50	0.4267
+                        -30	0.3517
+                        -20	0.1813
+                        -15	0.1457
+                        -10	0.1198
+                        -5	0.1061
+                        0	0.1031
+                        5	0.1061
+                        10	0.1198
+                        15	0.1457
+                        20	0.1813
+                        30	0.3517
+                        50	0.4267
+                        70	0.4930
+                        90	0.3388
+                    </tableData>
+                </table>
+            </product>
+        </function>
+    </axis>
+
+    <!-- ============== SIDE ============== -->
+    <axis name="SIDE">
+        <function name="aero/coefficient/CYb">
+            <description>Side_force_due_to_beta</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>aero/beta-rad</property>
+                <value>-1.9214</value>
+            </product>
+        </function>
+    </axis>
+
+    <!-- ============== LIFT ============== -->
+    <axis name="LIFT">
+        <function name="aero/coefficient/CLalpha">
+            <description>Lift Coefficient with AoA(alpha)</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <table>
+                    <independentVar lookup="row">aero/alpha-deg</independentVar>
+                    <tableData>
+                        -90	-0.1064
+                        -60	-0.6466
+                        -30	-0.7998
+                        -20	-0.6273
+                        -16	-0.5028
+                        -12	-0.4053
+                        -8	-0.3820
+                        -4	-0.2931
+                        0	-0.1394
+                        4	0.1350
+                        8	0.4032
+                        12	0.6511
+                        16	0.7375
+                        20	0.6514
+                        30	0.7541
+                        60	0.6409
+                        90	0.0252
+                    </tableData>
+                </table>
+            </product>
+        </function>
+    </axis>
+
+    <!-- ============== ROLL ============== -->
+    <axis name="ROLL">
+        <function name="aero/coefficient/Clb">
+            <description>Roll_moment_due_to_beta (dihedral effect)</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>metrics/bw-ft</property>
+                <property>aero/beta-rad</property>
+                <value>-0.002457</value>
+            </product>
+        </function>
+        <function name="aero/coefficient/Clp">
+            <description>Roll_moment_due_to_roll_rate (aerodynamic damping)</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>metrics/bw-ft</property>
+                <property>aero/bi2vel</property>
+                <property>velocities/p-aero-rad_sec</property>
+                <value>-0.4938</value>
+            </product>
+        </function>
+        <function name="aero/coefficient/Clr">
+            <description>Roll_moment_due_to_yaw_rate</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>metrics/bw-ft</property>
+                <property>aero/bi2vel</property>
+                <property>velocities/r-aero-rad_sec</property>
+                <value>0.002799</value>
+            </product>
+        </function>
+        <!-- Direct rate damping for hover (works at zero airspeed) -->
+        <!-- <function name="aero/moment/Roll_rate_damp">
+            <description>Roll rate damping (direct, not qbar-dependent)</description>
+            <product>
+                <value>-12.0</value>
+                <property>velocities/p-rad_sec</property>
+            </product>
+        </function> -->
+    </axis>
+
+    <!-- ============== PITCH ============== -->
+    <axis name="PITCH">
+        <function name="aero/coefficient/Cmalpha">
+            <description>Pitch_moment_due_to_alpha</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>metrics/cbarw-ft</property>
+                <property>aero/alpha-deg</property>
+                <value>0.0</value>
+                <table>
+                    <independentVar lookup="row">aero/alpha-deg</independentVar>
+                    <tableData>
+                        -90	0.7923
+                        -60	0.6180
+                        -30	0.2768
+                        -20	0.1842
+                        -16	0.1419
+                        -12	0.1178
+                        -8	0.1143
+                        -4	0.1147
+                        0	0.0926
+                        4	-0.0038
+                        8	-0.0980
+                        12	-0.1862
+                        16	-0.2473
+                        20	-0.2164
+                        30	-0.2746
+                        60	-0.5663
+                        90	-0.7522
+                    </tableData>
+                </table>
+            </product>
+        </function>
+        <function name="aero/coefficient/Cmq">
+            <description>Pitch_moment_due_to_pitch_rate</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>metrics/cbarw-ft</property>
+                <property>aero/ci2vel</property>
+                <property>velocities/q-aero-rad_sec</property>
+                <value>-77.1609</value>
+            </product>
+        </function>
+        <!-- Direct rate damping for hover (reduced to allow FW pitch authority) -->
+        <!-- <function name="aero/moment/Pitch_rate_damp">
+            <description>Pitch rate damping (direct, not qbar-dependent)</description>
+            <product>
+                <value>-8.0</value>
+                <property>velocities/q-rad_sec</property>
+            </product>
+        </function> -->
+    </axis>
+
+    <!-- ============== YAW ============== -->
+    <axis name="YAW">
+        <function name="aero/coefficient/Cnb">
+            <description>Yaw_moment_due_to_beta</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>metrics/bw-ft</property>
+                <property>aero/beta-rad</property>
+                <value>0.6526</value>
+            </product>
+        </function>
+        <function name="aero/coefficient/Cnr">
+            <description>Yaw_moment_due_to_yaw_rate</description>
+            <product>
+                <property>aero/qbar-psf</property>
+                <property>metrics/Sw-sqft</property>
+                <property>metrics/bw-ft</property>
+                <property>aero/bi2vel</property>
+                <property>velocities/r-aero-rad_sec</property>
+                <value>-0.5741</value>
+            </product>
+        </function>
+        <!-- Direct rate damping for hover -->
+        <!-- <function name="aero/moment/Yaw_rate_damp">
+            <description>Yaw rate damping (direct, not qbar-dependent)</description>
+            <product>
+                <value>-6.0</value>
+                <property>velocities/r-rad_sec</property>
+            </product>
+        </function> -->
+    </axis>
+
+</aerodynamics>

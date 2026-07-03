@@ -1,0 +1,102 @@
+<!--
+    Propulsion for goshawk_10s tailsitter VTOL (X-layout)
+    Motor: T-Motor AT3520 550KV (file: Engines/T-MOTOR_AT3520.xml)
+    Propeller: VSC 12×6 (file: Engines/prop_vsc_12x6.xml)
+
+    설계 원칙:
+      JSBSim 날개 양력 계산을 위해 고정익 형상(정면 바라보기)으로 모델링.
+      시뮬레이션 시작 시 reset/scene 파일에서 theta=90을 주어 기수가 수직 상방을 향하게 함.
+
+    JSBSim structure frame (멀티콥터 convention):
+      X-: Front (날개 앞쪽)   X+: Rear (꼬리 쪽)
+      Y+: 오른쪽 날개          Z+: 위 (하늘)
+
+    고정익 정면 바라보기 기준 모터 위치:
+      Front motor (날개 아래면): z = -0.174 m
+      Rear  motor (날개 윗면):  z = +0.174 m
+      X 좌표: 기수에서 모터까지 거리 (모든 모터 동일, x = 0.200 m)
+
+    추력 방향: Z+ (위) → thruster pitch = 90
+      (JSBSim ELECTRIC 엔진 기본 추력: -X → pitch=90 회전 → +Z)
+
+    Rotation (X-layout, 위에서 내려다볼 때):
+      Motor 0 FR: Counter-Clockwise (sense =  1)
+      Motor 1 AL: Counter-Clockwise (sense =  1)
+      Motor 2 FL: Clockwise         (sense = -1)
+      Motor 3 AR: Clockwise         (sense = -1)
+-->
+<propulsion>
+
+    <!-- Motor 0: Front-Right (Counter-Clockwise) -->
+    <engine file="T-MOTOR_AT3520" name="motor_0_FR">
+        <thruster file="prop_vsc_12x6">
+            <location unit="M">
+                <x>  0.200 </x>  <!-- 기수에서 모터까지 거리 -->
+                <y>  0.200 </y>  <!-- Right -->
+                <z> -0.174 </z>  <!-- 날개 아래면 (Front motor) -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch>  0 </pitch>  <!-- Thrust along +Z (위) -->
+                <yaw>    0 </yaw>
+            </orient>
+            <sense>  1 </sense>   <!-- Counter-Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 1: Aft-Left (Counter-Clockwise) -->
+    <engine file="T-MOTOR_AT3520" name="motor_1_AL">
+        <thruster file="prop_vsc_12x6">
+            <location unit="M">
+                <x>  0.200 </x>
+                <y> -0.200 </y>  <!-- Left -->
+                <z>  0.174 </z>  <!-- 날개 윗면 (Rear motor) -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch>  0 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense>  1 </sense>   <!-- Counter-Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 2: Front-Left (Clockwise) -->
+    <engine file="T-MOTOR_AT3520" name="motor_2_FL">
+        <thruster file="prop_vsc_12x6">
+            <location unit="M">
+                <x>  0.200 </x>
+                <y> -0.200 </y>  <!-- Left -->
+                <z> -0.174 </z>  <!-- 날개 아래면 (Front motor) -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch>  0 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense> -1 </sense>   <!-- Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 3: Aft-Right (Clockwise) -->
+    <engine file="T-MOTOR_AT3520" name="motor_3_AR">
+        <thruster file="prop_vsc_12x6">
+            <location unit="M">
+                <x>  0.200 </x>
+                <y>  0.200 </y>  <!-- Right -->
+                <z>  0.174 </z>  <!-- 날개 윗면 (Rear motor) -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch>  0 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense> -1 </sense>   <!-- Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+</propulsion>

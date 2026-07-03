@@ -1,0 +1,24 @@
+<metrics>
+	<wingarea unit="FT2">  2.1528 </wingarea>
+	<wingspan unit="FT">   3.9370  </wingspan>
+	<chord unit="FT">      0.5468 </chord>
+	<htailarea unit="FT2"> 0.000     </htailarea>
+	<htailarm unit="FT">   0.000     </htailarm>
+	<vtailarea unit="FT2"> 0.9136815 </vtailarea>
+	<vtailarm  unit="FT">  0.1961286 </vtailarm>
+    <location name="AERORP" unit="FT">
+        <x> 0.7480 </x> <!-- 0.228 m × 3.28084 -->
+        <y> 0.000 </y>
+        <z> 0.000 </z>
+    </location>
+    <location name="EYEPOINT" unit="FT">
+        <x> 1.148 </x>
+        <y> 0.000 </y>
+        <z> 0.000 </z>
+    </location>
+    <location name="VRP" unit="FT">
+        <x> 0.000 </x>
+        <y> 0.000 </y>
+        <z> 0.000 </z>
+    </location>
+</metrics>

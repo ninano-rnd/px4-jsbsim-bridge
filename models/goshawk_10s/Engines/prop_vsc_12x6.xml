@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+    File:     prop_vsc_12x6.xml
+    Author:   Cheon
+    Date:     2026-03-26
+    Description: VSC 12×6 propeller model for Goshawk 10S
+
+    Propeller Specifications:
+    - Model: VSC 12×6
+    - Diameter: 12 inches (0.5334 meters)
+    - Pitch: 6 inches (0.1524 meters)
+    - Pitch Ratio: 0.5 (6/12)
+    - Type: Fixed pitch, multirotor propeller
+    - Blades: 2 (typical for this size)
+
+    Motor: T-motor AT3520 550KV
+    - Max thrust: 2.6920 kg (5.9348441 lbs) per motor @ 100% throttle
+    - Max power: 1100 W
+    - Max RPM: ~13860 RPM (at 6S/25.2V)
+
+    Performance Characteristics:
+    - Low pitch ratio (0.5) optimized for high static thrust
+    - Suitable for VTOL/hover operations
+    - Good efficiency at low advance ratios
+
+    Notes:
+    - Thrust and power coefficients are estimated based on typical
+      multirotor propeller characteristics
+    - For precise modeling, measured propeller data is recommended
+    - Static thrust matches motor specifications (~11.1 kg per motor)
+-->
+
+<propeller name="prop_vsc_12x6">
+    <!-- Propeller inertia (estimated for 12" carbon fiber propeller) -->
+    <ixx> 0.0002 </ixx> <!-- slug-ft^2 -->
+
+    <!-- Physical dimensions -->
+    <diameter unit="IN"> 12 </diameter>
+    <numblades> 2 </numblades>
+    <gearratio> 1.0 </gearratio> <!-- Direct drive, no gearbox -->
+
+    <!-- Pitch characteristics -->
+    <minpitch> 6 </minpitch> <!-- Fixed pitch propeller -->
+    <maxpitch> 6 </maxpitch>
+
+    <!-- RPM limits -->
+    <minrpm> 0 </minrpm>
+
+    <!-- Conservative limit for electric motor -->
+    <!-- <maxrpm> 10487 </maxrpm>  -->
+    
+    <!-- Maximum RPM for electric motor -->
+    <maxrpm> 13860 </maxrpm> 
+
+    <!--
+    Thrust Coefficient Table: C_T vs Advance Ratio (J)
+
+    Advance Ratio: J = V / (n * D)
+    where:
+      V = velocity (ft/s)
+      n = RPM / 60 (revolutions per second)
+      D = diameter (ft)
+
+    For low pitch ratio propellers (0.335):
+    - High static thrust (J=0)
+    - Efficiency peaks at low advance ratios
+    - Quick thrust dropoff at higher speeds
+
+    Thrust calculation: T = C_T * ρ * n² * D⁴
+    where ρ = air density (slugs/ft³)
+
+    Target static thrust: ~11.1 kg = 24.5 lbs = 109 N
+    At max RPM (6500): C_T ≈ 0.12 for this propeller
+    -->
+    <table name="C_THRUST" type="internal">
+        <tableData>
+		0.00	0.09292
+        0.05	0.08882
+        0.10	0.08416
+        0.15	0.07895
+        0.20	0.07319
+        0.25	0.06688
+        0.30	0.06001
+        0.35	0.05260
+        0.40	0.04464
+        0.45	0.03612
+        0.50	0.02706
+        0.55	0.01744
+        0.60	0.00728
+        0.65	-0.00344
+        0.70	-0.01471
+        </tableData>
+    </table>
+
+    <!--
+    Power Coefficient Table: C_P vs Advance Ratio (J)
+
+    Power calculation: P = C_P * ρ * n³ * D⁵
+
+    Target max power: 2685 W = 3.6 HP
+    At max RPM and static conditions: C_P ≈ 0.075
+    -->
+    <table name="C_POWER" type="internal">
+        <tableData>
+		0.00	0.04067
+        0.05	0.04179
+        0.10	0.04242
+        0.15	0.04256
+        0.20	0.04221
+        0.25	0.04136
+        0.30	0.04002
+        0.35	0.03818
+        0.40	0.03586
+        0.45	0.03304
+        0.50	0.02973
+        0.55	0.02592
+        0.60	0.02163
+        0.65	0.01684
+        0.70	0.01156
+        0.75	0.00578
+        0.80	-0.00049
+        </tableData>
+    </table>
+
+    <!--
+    Static Performance Estimates (at sea level, standard atmosphere):
+
+    Hover (J=0):
+    - RPM: 6461 (measured from motor test data)
+    - Thrust: 11.114 kg (24.5 lbs) per motor
+    - Power: 2684.4 W per motor
+    - Efficiency: ~15.2 g/W (thrust/power ratio)
+
+    Cruise (60% throttle, forward flight at 22 m/s):
+    - RPM: ~4574 (measured from motor test data)
+    - Thrust: ~5.5 kg per motor
+    - Power: ~813 W per motor
+    - Efficiency: Higher due to forward flight
+
+    Note: These values are based on motor test data provided by user.
+    Actual performance will vary with atmospheric conditions, motor voltage,
+    and propeller manufacturing tolerances.
+    -->
+
+</propeller>

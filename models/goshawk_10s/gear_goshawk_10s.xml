@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<ground_reactions>
+	<!-- This is a fake point, JSBSim struggles with a 4-point ground trim -->
+	<contact name="Front_Center" type="STRUCTURE">
+		<location unit="FT">
+			<x>  -1.484 </x> <!-- 0.4524 m × 3.28084 -->
+			<y>  0.000 </y>
+			<z> -1.317 </z> <!-- -0.4016 m × 3.28084 -->
+		</location>
+		<orientation unit="DEG">
+		<pitch> -90 </pitch>
+		<roll>  0 </roll>
+		<yaw>   0 </yaw>
+		</orientation>
+		<static_friction>  5 </static_friction>
+		<dynamic_friction> 5 </dynamic_friction>
+		<spring_coeff unit="N/M">220</spring_coeff>
+		<damping_coeff unit="N/M/SEC">60</damping_coeff>
+	</contact>
+
+	<contact name="Aft_Left" type="STRUCTURE">
+		<location unit="FT">
+			<x>  -1.484 </x> <!-- 0.4524 m × 3.28084 -->
+			<y> -0.989 </y> <!-- -0.3016 m × 3.28084 -->
+			<z>  0.989 </z> <!-- 0.3016 m × 3.28084 -->
+		</location>
+		<orientation unit="DEG">
+		<pitch> -90 </pitch>
+		<roll>  0 </roll>
+		<yaw>   0 </yaw>
+		</orientation>
+		<static_friction>  5 </static_friction>
+		<dynamic_friction> 5 </dynamic_friction>
+		<spring_coeff unit="N/M">220</spring_coeff>
+		<damping_coeff unit="N/M/SEC">60</damping_coeff>
+	</contact>
+
+	<contact name="Aft_Right" type="STRUCTURE">
+		<location unit="FT">
+			<x>  -1.484 </x> <!-- 0.4524 m × 3.28084 -->
+			<y>  0.989 </y> <!-- 0.3016 m × 3.28084 -->
+			<z>  0.989 </z> <!-- 0.3016 m × 3.28084 -->
+		</location>
+		<orientation unit="DEG">
+		<pitch> -90 </pitch>
+		<roll>  0 </roll>
+		<yaw>   0 </yaw>
+		</orientation>
+		<static_friction>  5 </static_friction>
+		<dynamic_friction> 5 </dynamic_friction>
+		<spring_coeff unit="N/M">220</spring_coeff>
+		<damping_coeff unit="N/M/SEC">60</damping_coeff>
+	</contact>
+</ground_reactions>

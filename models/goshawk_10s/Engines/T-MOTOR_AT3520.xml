@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<brushless_dc_motor name="t-motor_at3520_bldc">
+  <!-- T-MOTOR AT3520 550KV motor -->
+  <!-- 550KV = 550 RPM per volt -->
+  <!-- Max voltage: ~44.4V (12S LiPo) -->
+  <!-- Max RPM: 180 × 44.4 = 7992 RPM -->
+  <velocityconstant> 550 </velocityconstant>
+  <coilresistance>0.031</coilresistance>
+  <noloadcurrent>1.1</noloadcurrent>
+  <maxvolts> 25.0 </maxvolts>
+</brushless_dc_motor>
