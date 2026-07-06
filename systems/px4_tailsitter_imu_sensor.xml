@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<system name="PX4 IMU Sensor">
+<!--  =================================================================
+This is a generic JSBSim system file to simulate the IMU behavior for PX4.
+  =================================================================  -->
+
+    <!-- Enable Individual Component Failure -->
+    <property value="1">px4/acc_x/on</property>
+    <property value="1">px4/acc_y/on</property>
+    <property value="1">px4/acc_z/on</property>
+
+    <property value="1">px4/gyro_x/on</property>
+    <property value="1">px4/gyro_y/on</property>
+    <property value="1">px4/gyro_z/on</property>
+
+    <channel name="Accelerometer-X" execute="px4/acc_x/on">
+        <accelerometer name="Tailsitter-ACC-X">
+            <location unit="M">
+                <x> 0 </x>
+                <y> 0 </y>
+                <z> 0.345 </z>
+            </location>
+            <orientation unit="DEG">
+                <pitch> -90 </pitch>
+                <roll>  0 </roll>
+                <yaw>   0 </yaw>
+            </orientation>
+            <axis> X </axis>
+            <output> px4/acc-x </output>
+        </accelerometer>
+    </channel>
+
+    <channel name="Accelerometer-Y" execute="px4/acc_y/on">
+        <accelerometer name="Tailsitter-ACC-Y">
+            <location unit="M">
+                <x> 0 </x>
+                <y> 0 </y>
+                <z> 0.345 </z>
+            </location>
+            <orientation unit="DEG">
+                <pitch> -90 </pitch>
+                <roll>  0 </roll>
+                <yaw>   0 </yaw>
+            </orientation>
+            <axis> Y </axis>
+            <output> px4/acc-y </output>
+        </accelerometer>
+    </channel>
+
+    <channel name="Accelerometer-Z" execute="px4/acc_z/on">
+        <accelerometer name="Tailsitter-ACC-Z">
+            <location unit="M">
+                <x> 0 </x>
+                <y> 0 </y>
+                <z> 0.345 </z>
+            </location>
+            <orientation unit="DEG">
+                <pitch> -90 </pitch>
+                <roll>  0 </roll>
+                <yaw>   0 </yaw>
+            </orientation>
+            <axis> Z </axis>
+            <output> px4/acc-z </output>
+        </accelerometer>
+    </channel>
+
+    <channel name="Gyro-X" execute="px4/gyro_x/on">
+        <sensor name="px4/gyro-x">
+            <input>velocities/r-rad_sec</input>
+            <lag> 0 </lag>
+        </sensor>
+    </channel>
+
+    <channel name="Gyro-Y" execute="px4/gyro_y/on">
+        <sensor name="px4/gyro-y">
+            <input>velocities/q-rad_sec</input>
+            <lag> 0 </lag>
+        </sensor>
+    </channel>
+
+    <channel name="Gyro-Z" execute="px4/gyro_z/on">
+        <sensor name="px4/gyro-z">
+            <input>velocities/p-rad_sec</input>
+            <gain> -1.0 </gain>
+            <lag> 0 </lag>
+        </sensor>
+    </channel>
+
+</system>
+

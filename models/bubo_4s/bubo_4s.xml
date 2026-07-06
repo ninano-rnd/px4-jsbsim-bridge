@@ -67,4 +67,15 @@
     <system file="px4_default_gps_sensor"/>
     <system file="px4_default_baro_sensor"/>
 
+    <output name="localhost" type="SOCKET" protocol="UDP" port="5762" rate="1">
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/psi-deg</property>
+        <property>position/h-sl-meters</property>
+        <property>velocities/vt-fps</property>
+        <property>px4/acc-x</property>
+        <property>px4/acc-y</property>
+        <property>px4/acc-z</property>
+    </output>
+
 </fdm_config>

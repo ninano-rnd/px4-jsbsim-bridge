@@ -30,6 +30,9 @@
             <baro_mbar_rms_noise>0.01</baro_mbar_rms_noise>
         </barometer>
         <magnetometer>
+            <jsb_mag_x>px4/biased-mag-x</jsb_mag_x>
+            <jsb_mag_y>px4/biased-mag-y</jsb_mag_y>
+            <jsb_mag_z>px4/biased-mag-z</jsb_mag_z>
         </magnetometer>
     </sensors>
     <actuators>

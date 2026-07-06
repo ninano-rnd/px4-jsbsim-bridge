@@ -7,6 +7,6 @@
   <vt unit="FT/SEC">      0 </vt>
   <gamma unit="DEG">      0.0 </gamma>
   <phi unit="DEG">        0.0 </phi>
-  <theta unit="DEG">      0.0 </theta>  <!-- Tailsitter: nose pointing up -->
+  <theta unit="DEG">      90.0 </theta>  <!-- Tailsitter: nose pointing up -->
   <psi unit="DEG">        0.0 </psi>
 </initialize>

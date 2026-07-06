@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<system name="PX4 Tailsitter Magnetometer Sensor">
+<!--
+    Tailsitter magnetometer with orientation matching px4_tailsitter_imu_sensor.
+    orientation pitch=-90 applies the same body frame rotation as the IMU,
+    so mag axes are consistent with acc/gyro axes sent to PX4.
+-->
+    <property value="1">px4/mag_x/on</property>
+    <property value="1">px4/mag_y/on</property>
+    <property value="1">px4/mag_z/on</property>
+
+    <channel name="Magnetometer-X" execute="px4/mag_x/on">
+        <magnetometer name="Tailsitter-Mag-X">
+            <location unit="M"><x>0</x><y>0</y><z>0</z></location>
+            <orientation unit="DEG">
+                <pitch> -90 </pitch>
+                <roll>  0 </roll>
+                <yaw>   0 </yaw>
+            </orientation>
+            <axis> X </axis>
+            <output> px4/mag-x </output>
+        </magnetometer>
+        <fcs_function>
+            <function><property>px4/mag-x</property></function>
+            <output>px4/biased-mag-x</output>
+        </fcs_function>
+    </channel>
+
+    <channel name="Magnetometer-Y" execute="px4/mag_y/on">
+        <magnetometer name="Tailsitter-Mag-Y">
+            <location unit="M"><x>0</x><y>0</y><z>0</z></location>
+            <orientation unit="DEG">
+                <pitch> -90 </pitch>
+                <roll>  0 </roll>
+                <yaw>   0 </yaw>
+            </orientation>
+            <axis> Y </axis>
+            <output> px4/mag-y </output>
+        </magnetometer>
+        <fcs_function>
+            <function><property>px4/mag-y</property></function>
+            <output>px4/biased-mag-y</output>
+        </fcs_function>
+    </channel>
+
+    <channel name="Magnetometer-Z" execute="px4/mag_z/on">
+        <magnetometer name="Tailsitter-Mag-Z">
+            <location unit="M"><x>0</x><y>0</y><z>0</z></location>
+            <orientation unit="DEG">
+                <pitch> -90 </pitch>
+                <roll>  0 </roll>
+                <yaw>   0 </yaw>
+            </orientation>
+            <axis> Z </axis>
+            <output> px4/mag-z </output>
+        </magnetometer>
+        <fcs_function>
+            <function><property>px4/mag-z</property></function>
+            <output>px4/biased-mag-z</output>
+        </fcs_function>
+    </channel>
+
+</system>
