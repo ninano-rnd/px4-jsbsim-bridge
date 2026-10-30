@@ -48,7 +48,7 @@
             Control:
             - No traditional control surfaces
             - Attitude control via differential thrust only
-            - Direct motor control via ArduPilot SITL interface
+            - Direct motor control via PX4 Autopilot SITL interface
 
             Coordinate System:
             - Aircraft oriented as tailsitter (fuselage vertical in hover)
@@ -58,22 +58,15 @@
     </fileheader>
 
     <metrics file="metrics_goshawk_10s.xml"/>
-
     <mass_balance file="mass_goshawk_10s.xml"/>
-
     <ground_reactions file="gear_goshawk_10s.xml"/>
-
     <propulsion file="propulsion_goshawk_10s.xml"/>
-
     <system file="effectors_goshawk_10s.xml"/>
-
     <aerodynamics file="aero_goshawk_10s.xml"/>
 
-    <system file="px4_tailsitter_imu_sensor"/>
-    <!-- <system file="px4_default_imu_sensor"/> -->
+    <system file="px4_default_imu_sensor"/>
     <system file="px4_default_gps_sensor"/>
     <system file="px4_default_baro_sensor"/>
-    <system file="px4_tailsitter_mag_sensor"/>
 
     <!-- Attitude debug output via UDP (port 5762) — remove after confirming initial pose -->
     <output name="localhost" type="SOCKET" protocol="UDP" port="5762" rate="1">
@@ -85,12 +78,76 @@
         <property>px4/acc-x</property>
         <property>px4/acc-y</property>
         <property>px4/acc-z</property>
-        <property>px4/gyro-x</property>
-        <property>px4/gyro-y</property>
-        <property>px4/gyro-z</property>
-        <property>px4/biased-mag-x</property>
-        <property>px4/biased-mag-y</property>
-        <property>px4/biased-mag-z</property>
+    </output>
+
+    <!-- monitor_goshawk.py: time is prepended by JSBSim; property order must match.
+         CLalpha/CDalpha are forces in lbf, not dimensionless coefficients. -->
+    <output name="127.0.0.1" type="SOCKET" protocol="UDP" port="5764" rate="10">
+        <property>aero/alpha-deg</property>
+        <property>aero/coefficient/CLalpha</property>
+        <property>aero/coefficient/CDalpha</property>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>propulsion/engine[0]/thrust-lbs</property>
+        <property>propulsion/engine[1]/thrust-lbs</property>
+        <property>propulsion/engine[2]/thrust-lbs</property>
+        <property>propulsion/engine[3]/thrust-lbs</property>
+        <property>velocities/vt-fps</property>
+        <property>propulsion/engine[0]/propeller-rpm</property>
+        <property>propulsion/engine[1]/propeller-rpm</property>
+        <property>propulsion/engine[2]/propeller-rpm</property>
+        <property>propulsion/engine[3]/propeller-rpm</property>
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/psi-deg</property>
+    </output>
+
+    <!-- Native CSV diagnostic log (independent of the UDP monitor and PX4 ULog).
+         sitl_run.sh gives each Goshawk run its own working directory.
+         JSBSim prepends simulation time [s]. BODY Y is also FW pitch:
+         positive moment/rate is nose-up. Moments are lbf*ft, not N*m.
+         m-aero includes the AERORP-to-CG force moment; do not add CM again. -->
+    <output name="goshawk_moments.csv" type="CSV" rate="50">
+        <property>moments/m-prop-lbsft</property>
+        <property>moments/m-aero-lbsft</property>
+        <property>moments/m-total-lbsft</property>
+        <property>moments/m-gear-lbsft</property>
+        <property>aero/coefficient/Cmalpha</property>
+        <property>aero/coefficient/Cmq</property>
+        <property>velocities/q-rad_sec</property>
+        <property>accelerations/qdot-rad_sec2</property>
+        <property>velocities/p-rad_sec</property>
+        <property>velocities/r-rad_sec</property>
+        <property>velocities/q-aero-rad_sec</property>
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/psi-deg</property>
+        <property>aero/alpha-deg</property>
+        <property>aero/beta-deg</property>
+        <property>aero/qbar-psf</property>
+        <property>velocities/vt-fps</property>
+        <property>velocities/v-north-fps</property>
+        <property>velocities/v-east-fps</property>
+        <property>velocities/v-down-fps</property>
+        <property>position/h-sl-meters</property>
+        <property>aero/coefficient/CLalpha</property>
+        <property>aero/coefficient/CDalpha</property>
+        <property>fcs/esc-cmd-norm[0]</property>
+        <property>fcs/esc-cmd-norm[1]</property>
+        <property>fcs/esc-cmd-norm[2]</property>
+        <property>fcs/esc-cmd-norm[3]</property>
+        <property>fcs/throttle-pos-norm[0]</property>
+        <property>fcs/throttle-pos-norm[1]</property>
+        <property>fcs/throttle-pos-norm[2]</property>
+        <property>fcs/throttle-pos-norm[3]</property>
+        <property>propulsion/engine[0]/thrust-lbs</property>
+        <property>propulsion/engine[1]/thrust-lbs</property>
+        <property>propulsion/engine[2]/thrust-lbs</property>
+        <property>propulsion/engine[3]/thrust-lbs</property>
+        <property>propulsion/engine[0]/propeller-rpm</property>
+        <property>propulsion/engine[1]/propeller-rpm</property>
+        <property>propulsion/engine[2]/propeller-rpm</property>
+        <property>propulsion/engine[3]/propeller-rpm</property>
     </output>
 
 </fdm_config>

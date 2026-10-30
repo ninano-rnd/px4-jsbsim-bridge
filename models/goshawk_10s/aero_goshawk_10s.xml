@@ -1,15 +1,31 @@
 <?xml version="1.0" ?>
 <!--
     Aerodynamics for Goshawk 10s tailsitter VTOL
-    Based on Rascal 110 aero data, adapted for:
+    Static CL/CD/CM from the user-supplied CFD table (AoA FW, -140..0 deg).
+    Remaining sideslip and rate derivatives are inherited Rascal estimates,
+    NOT validated by this CFD table. Geometry used for dimensionalization:
       - Wing area: 0.2 m² (2.15 ft²)
       - Wingspan: 1.2 m (3.94 ft)
       - Mean chord: 0.1667 m (0.547 ft)
       - AR: 7.20
       - MTOW: 4 kg (8.82 lbs)
       - No tail surfaces (differential thrust for yaw)
-    Rate damping retained for hover (zero-airspeed) stability.
-    Uses JSBSim standard units: qbar-psf, Sw-sqft, bw-ft, cbarw-ft
+    Uses JSBSim standard units: qbar-psf, Sw-sqft, bw-ft, cbarw-ft.
+    Assumes CFD AoA(FW) equals native aero/alpha-deg; no angle shift applied.
+    Confirm CFD angle/sign conventions and reference area/chord against metrics.
+    CM is applied about AERORP; confirm the CFD moment reference point.
+    JSBSim adds AERORP-to-CG force moments separately.
+    Outside -140..0 deg, tables clamp to endpoint values (not validated CFD).
+    No synthetic +10 deg zero-coefficient row or reverse-flow data are added.
+    FW axes relative to JSBSim BODY: X_FW=-Z_BODY, Y_FW=Y_BODY, Z_FW=X_BODY.
+    Thus p_FW=-r_BODY, q_FW=q_BODY, r_FW=p_BODY, and body moments are
+    L_BODY=N_FW, M_BODY=M_FW, N_BODY=-L_FW. ROLL/PITCH/YAW below are BODY axes.
+    beta=atan2(v,sqrt(u*u+w*w)) is unchanged by this Y-axis rotation.
+    Lift/drag wind axes and the existing native-alpha CFD lookup are retained.
+    Cl*/Cn* function names denote the source FW derivative, but their outputs
+    include the sign needed for the destination BODY moment axis.
+    Active rate damping depends on airspeed; direct hover damping is commented out.
+    Legacy aero/coefficient/* functions output forces/moments, not coefficients.
 -->
 <aerodynamics>
 
@@ -23,56 +39,32 @@
                 <table>
                     <independentVar lookup="row">aero/alpha-deg</independentVar>
                     <tableData>
-						-90	1.2928
-                        -60	1.1287
-                        -30	0.6001
-                        -20	0.3674
-                        -16	0.2817
-                        -12	0.2144
-                        -8	0.1476
-                        -4	0.1089
-                        0	0.1029
-                        4	0.1117
-                        8	0.1347
-                        12	0.1715
-                        16	0.2405
-                        20	0.3240
-                        30	0.5508
-                        60	1.1791
-                        90	1.3690
+                        -140 1.0292
+                        -130 0.8572
+                        -120 0.6476
+                        -110 0.4150
+                        -100 0.1606
+                        -98  0.0955
+                        -94  0.0456
+                        -90   0.0358
+                        -86   0.0470
+                        -82   0.0756
+                        -80  0.0968
+                        -78  0.1265
+                        -74  0.2150
+                        -70  0.3093
+                        -60  0.6145
+                        -50  0.8305
+                        -40  1.0125
+                        -30  1.1418
+                        -20  1.1517
+                        -10  0.8838
+                        0  0.8336
                     </tableData>
                 </table>
             </product>
         </function>
-        <function name="aero/coefficient/CDbeta">
-            <description>Drag_due_to_sideslip</description>
-            <product>
-                <property>aero/qbar-psf</property>
-                <property>metrics/Sw-sqft</property>
-                <table>
-                    <independentVar>aero/beta-deg</independentVar>
-                    <tableData>
-                        -90	0.3388
-                        -70	0.4930
-                        -50	0.4267
-                        -30	0.3517
-                        -20	0.1813
-                        -15	0.1457
-                        -10	0.1198
-                        -5	0.1061
-                        0	0.1031
-                        5	0.1061
-                        10	0.1198
-                        15	0.1457
-                        20	0.1813
-                        30	0.3517
-                        50	0.4267
-                        70	0.4930
-                        90	0.3388
-                    </tableData>
-                </table>
-            </product>
-        </function>
+        <!-- No CDbeta: the supplied CD column is a function of alpha, not beta. -->
     </axis>
 
     <!-- ============== SIDE ============== -->
@@ -98,71 +90,70 @@
                 <table>
                     <independentVar lookup="row">aero/alpha-deg</independentVar>
                     <tableData>
-                        -90	-0.1064
-                        -60	-0.6466
-                        -30	-0.7998
-                        -20	-0.6273
-                        -16	-0.5028
-                        -12	-0.4053
-                        -8	-0.3820
-                        -4	-0.2931
-                        0	-0.1394
-                        4	0.1350
-                        8	0.4032
-                        12	0.6511
-                        16	0.7375
-                        20	0.6514
-                        30	0.7541
-                        60	0.6409
-                        90	0.0252
+                        -140 -0.7988
+                        -130 -0.8956
+                        -120 -0.9020
+                        -110 -0.8099
+                        -100 -0.6218
+                        -98  -0.6381
+                        -94  -0.3227
+                        -90    0.0837
+                        -86    0.4809
+                        -82    0.8637
+                        -80   1.0404
+                        -78   1.1382
+                        -74   1.1302
+                        -70   1.1776
+                        -60   1.0021
+                        -50   0.9445
+                        -40   0.8272
+                        -30   0.6552
+                        -20   0.4172
+                        -10   0.1734
+                        0   0.0233
                     </tableData>
                 </table>
             </product>
         </function>
     </axis>
 
-    <!-- ============== ROLL ============== -->
-    <axis name="ROLL">
+    <!-- FW roll moment maps to negative BODY yaw moment. -->
+    <axis name="YAW">
         <function name="aero/coefficient/Clb">
-            <description>Roll_moment_due_to_beta (dihedral effect)</description>
+            <description>BODY yaw: negative FW roll moment due to beta</description>
             <product>
                 <property>aero/qbar-psf</property>
                 <property>metrics/Sw-sqft</property>
                 <property>metrics/bw-ft</property>
                 <property>aero/beta-rad</property>
-                <value>-0.002457</value>
+                <!-- N_BODY=-L_FW: negate Cl_beta=-0.002457. -->
+                <value>0.002457</value>
             </product>
         </function>
         <function name="aero/coefficient/Clp">
-            <description>Roll_moment_due_to_roll_rate (aerodynamic damping)</description>
+            <description>BODY yaw damping from FW roll-rate derivative</description>
             <product>
                 <property>aero/qbar-psf</property>
                 <property>metrics/Sw-sqft</property>
                 <property>metrics/bw-ft</property>
                 <property>aero/bi2vel</property>
-                <property>velocities/p-aero-rad_sec</property>
+                <!-- p_FW=-r_BODY and N_BODY=-L_FW: the two signs cancel. -->
+                <property>velocities/r-aero-rad_sec</property>
                 <value>-0.4938</value>
             </product>
         </function>
         <function name="aero/coefficient/Clr">
-            <description>Roll_moment_due_to_yaw_rate</description>
+            <description>BODY yaw: negative FW roll moment due to FW yaw rate</description>
             <product>
                 <property>aero/qbar-psf</property>
                 <property>metrics/Sw-sqft</property>
                 <property>metrics/bw-ft</property>
                 <property>aero/bi2vel</property>
-                <property>velocities/r-aero-rad_sec</property>
-                <value>0.002799</value>
+                <!-- r_FW=p_BODY; negate the resulting FW roll moment. -->
+                <property>velocities/p-aero-rad_sec</property>
+                <value>-0.002799</value>
             </product>
         </function>
-        <!-- Direct rate damping for hover (works at zero airspeed) -->
-        <!-- <function name="aero/moment/Roll_rate_damp">
-            <description>Roll rate damping (direct, not qbar-dependent)</description>
-            <product>
-                <value>-12.0</value>
-                <property>velocities/p-rad_sec</property>
-            </product>
-        </function> -->
     </axis>
 
     <!-- ============== PITCH ============== -->
@@ -173,28 +164,50 @@
                 <property>aero/qbar-psf</property>
                 <property>metrics/Sw-sqft</property>
                 <property>metrics/cbarw-ft</property>
-                <value>1.0</value>
                 <table>
                     <independentVar lookup="row">aero/alpha-deg</independentVar>
                     <tableData>
-                        -90	0.7923
-                        -60	0.6180
-                        -30	0.2768
-                        -20	0.1842
-                        -16	0.1419
-                        -12	0.1178
-                        -8	0.1143
-                        -4	0.1147
-                        0	0.0926
-                        4	-0.0038
-                        8	-0.0980
-                        12	-0.1862
-                        16	-0.2473
-                        20	-0.2164
-                        30	-0.2746
-                        60	-0.5663
-                        90	-0.7522
+                        -180	0.7923
+                        -150	0.6180
+                        -120	0.2768
+                        -110	0.1842
+                        -106	0.1419
+                        -102	0.1178
+                        -98	    0.1143
+                        -94	    0.1147
+                        -90	    0.0926
+                        -86	    -0.0038
+                        -82	    -0.0980
+                        -78	    -0.1862
+                        -74	    -0.2473
+                        -70	    -0.2164
+                        -60	    -0.2746
+                        -30	    -0.5663
+                        0	    -0.7522
                     </tableData>
+                    <!-- <tableData>
+                        -140 0.6558
+                        -130 0.7692
+                        -120 0.7967
+                        -110 0.7398
+                        -100 0.5556
+                        -98  0.5217
+                        -94  0.2776
+                        -90 -0.0570
+                        -86 -0.3872
+                        -82 -0.7041
+                        -80 -0.8515
+                        -78 -0.9354
+                        -74 -0.9515
+                        -70 -0.9925
+                        -60 -0.8523
+                        -50 -0.7786
+                        -40 -0.6530
+                        -30 -0.4652
+                        -20 -0.2089
+                        -10 -0.0492
+                        0   0.0648
+                    </tableData> -->
                 </table>
             </product>
         </function>
@@ -219,10 +232,10 @@
         </function> -->
     </axis>
 
-    <!-- ============== YAW ============== -->
-    <axis name="YAW">
+    <!-- FW yaw moment maps to positive BODY roll moment. -->
+    <axis name="ROLL">
         <function name="aero/coefficient/Cnb">
-            <description>Yaw_moment_due_to_beta</description>
+            <description>BODY roll: FW yaw moment due to beta</description>
             <product>
                 <property>aero/qbar-psf</property>
                 <property>metrics/Sw-sqft</property>
@@ -232,24 +245,17 @@
             </product>
         </function>
         <function name="aero/coefficient/Cnr">
-            <description>Yaw_moment_due_to_yaw_rate</description>
+            <description>BODY roll damping from FW yaw-rate derivative</description>
             <product>
                 <property>aero/qbar-psf</property>
                 <property>metrics/Sw-sqft</property>
                 <property>metrics/bw-ft</property>
                 <property>aero/bi2vel</property>
-                <property>velocities/r-aero-rad_sec</property>
+                <!-- r_FW=p_BODY and L_BODY=N_FW. -->
+                <property>velocities/p-aero-rad_sec</property>
                 <value>-0.5741</value>
             </product>
         </function>
-        <!-- Direct rate damping for hover -->
-        <!-- <function name="aero/moment/Yaw_rate_damp">
-            <description>Yaw rate damping (direct, not qbar-dependent)</description>
-            <product>
-                <value>-6.0</value>
-                <property>velocities/r-rad_sec</property>
-            </product>
-        </function> -->
     </axis>
 
 </aerodynamics>

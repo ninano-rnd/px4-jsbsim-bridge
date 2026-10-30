@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ground_reactions>
+    <contact type="STRUCTURE" name="frontbase">
+      <location unit="M">
+        <x>  -0.283 </x>
+        <y>   0.00 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+    <contact type="STRUCTURE" name="rearbase">
+      <location unit="M">
+        <x>   0.283 </x>
+        <y>   0.00 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+    <contact type="STRUCTURE" name="leftbase">
+      <location unit="M">
+        <x>   0.00 </x>
+        <y>   0.283 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+    <contact type="STRUCTURE" name="rightbase">
+      <location unit="M">
+        <x>   0.00 </x>
+        <y>  -0.283 </y>
+        <z>  -0.033</z>
+      </location>
+      <static_friction>  5 </static_friction>
+      <dynamic_friction> 5 </dynamic_friction>
+      <spring_coeff unit="N/M">220</spring_coeff>
+      <damping_coeff unit="N/M/SEC">60</damping_coeff>
+    </contact>
+  </ground_reactions>

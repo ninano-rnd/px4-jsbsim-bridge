@@ -46,9 +46,10 @@
 JSBSimBridge::JSBSimBridge(JSBSim::FGFDMExec *fdmexec, ConfigurationParser &cfg) : _fdmexec(fdmexec), _cfg(cfg) {
   TiXmlHandle config = *_cfg.XmlHandle();
 
-  // Config JSBSim FDM
-  SetFdmConfigs(_cfg);
+  // Output rates are converted to frame intervals while loading the model.
+  // Set the integration step first so CSV/UDP rates use the actual timestep.
   _fdmexec->Setdt(_dt);
+  SetFdmConfigs(_cfg);
   _fdmexec->RunIC();
 
   // Configure Mavlink HIL interface

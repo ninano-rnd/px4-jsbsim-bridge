@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<brushless_dc_motor name="AOS3220-925KV">
+  <!-- AOS3220-925KV motor -->
+  <!-- 925KV = 925 RPM per volt -->
+  <!-- Max voltage: ~25.2V (6S LiPo) -->
+  <!-- Max RPM: 925 × 25.2 = 23,310 RPM -->
+  <velocityconstant> 925 </velocityconstant>
+  <coilresistance>0.025</coilresistance>
+  <noloadcurrent>2.1</noloadcurrent>
+  <maxvolts> 25.2 </maxvolts>
+</brushless_dc_motor>

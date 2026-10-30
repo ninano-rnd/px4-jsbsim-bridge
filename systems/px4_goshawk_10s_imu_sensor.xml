@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<system name="PX4 IMU Sensor">
+<!--  =================================================================
+This is a generic JSBSim system file to simulate the IMU behavior for PX4.
+  =================================================================  -->
+
+    <!-- Enable Individual Component Failure -->
+    <property value="0.0">px4/bypass-gyro-z</property>
+    <property value="0.0">px4/bypass-acc-z</property>
+
+    <channel name="IMU Bypass Calculations">
+        <!-- Z축 가속도 음수화 -->
+        <fcs_function name="px4/bypass-acc-z-calc">
+            <function>
+                <product>
+                    <property>accelerations/a-pilot-x-fps_sec</property>
+                    <value>-1.0</value>
+                </product>
+            </function>
+            <output>px4/bypass-acc-z</output>
+        </fcs_function>
+
+        <!-- Z축 자이로 음수화 -->
+        <fcs_function name="px4/bypass-gyro-z-calc">
+            <function>
+                <product>
+                    <property>velocities/p-rad_sec</property>
+                    <value>-1.0</value>
+                </product>
+            </function>
+            <output>px4/bypass-gyro-z</output>
+        </fcs_function>
+    </channel>
+
+</system>
+

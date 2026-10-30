@@ -1,0 +1,75 @@
+<propulsion>
+
+    <!-- Motor 0: Front-Right (Counter-Clockwise) -->
+    <engine file="AOS3220-925KV" name="motor_0_FR">
+        <thruster file="prop_3-biade_9x15">
+            <location unit="M">
+                <x> -0.1371 </x>  <!-- -0.1371 m (Front) -->
+                <y>  0.1371 </y>  <!-- +0.1371 m (Right) -->
+                <z> -0.2 </z>  <!-- -0.2 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>  <!-- Thrust points +Z (up) -->
+                <yaw>    0 </yaw>
+            </orient>
+            <sense>  1 </sense>   <!-- Counter-Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 1: Rear-Left (Counter-Clockwise) -->
+    <engine file="AOS3220-925KV" name="motor_1_RL">
+        <thruster file="prop_3-biade_9x15">
+            <location unit="M">
+                <x>  0.1371 </x>  <!-- +0.1371 m (Rear) -->
+                <y> -0.1371 </y>  <!-- -0.1371 m (Left) -->
+                <z> -0.2 </z>  <!-- -0.2 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense>  1 </sense>   <!-- Counter-Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 2: Front-Left (Clockwise) -->
+    <engine file="AOS3220-925KV" name="motor_2_FL">
+        <thruster file="prop_3-biade_9x15">
+            <location unit="M">
+                <x> -0.1371 </x>  <!-- -0.1371 m (Front) -->
+                <y> -0.1371 </y>  <!-- -0.1371 m (Left) -->
+                <z> -0.2 </z>  <!-- -0.2 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense> -1 </sense>   <!-- Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+    <!-- Motor 3: Rear-Right (Clockwise) -->
+    <engine file="AOS3220-925KV" name="motor_3_RR">
+        <thruster file="prop_3-biade_9x15">
+            <location unit="M">
+                <x>  0.1371 </x>  <!-- +0.1371 m (Rear) -->
+                <y>  0.1371 </y>  <!-- +0.1371 m (Right) -->
+                <z>  -0.2 </z>  <!-- -0.2 m -->
+            </location>
+            <orient unit="DEG">
+                <roll>   0 </roll>
+                <pitch> 90 </pitch>
+                <yaw>    0 </yaw>
+            </orient>
+            <sense> -1 </sense>   <!-- Clockwise -->
+            <p_factor> 0.0 </p_factor>
+        </thruster>
+    </engine>
+
+</propulsion>

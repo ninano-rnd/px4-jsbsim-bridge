@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSim.xsl"?>
+<fdm_config name="spear 1s" release="BETA" version="2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sourceforge.net/JSBSim.xsd">
+
+    <fileheader>
+        <author>hoyju han</author>
+        <filecreationdate>2026-10-20</filecreationdate>
+        <version>$Revision: 1.0 $</version>
+        <description>Models a spear_1s for surveilance</description>
+        <license>
+            <licenseName>GPL (General Public License)</licenseName>
+            <licenseURL>http://www.gnu.org/licenses/gpl.html</licenseURL>
+        </license>
+        <note>
+            This model represents the spear Quadrotor_x aircraft.
+
+            spear is model name, 1 means payload 0.1 kg, s means surveilance
+
+            Aircraft Specifications:
+            - Type: quad multi-copter
+            - MTOW: 5.0 kg
+            - Payload: 0.1 kg
+            - Wing Span: 0.1 m
+            - Wing Area: 0.001 m²
+            - Mean Chord: 0.01 m
+            - Cruise Speed: 86 m/s (310 km/h)
+
+            Propulsion:
+            - 4x AOS3220-925KV motors
+            - Max thrust per motor: - kg
+            - Total max thrust: - kg
+            - Max power per motor: - W
+            - Battery: 6S LiPo (-V nominal)
+
+            Motor Configuration (X-layout):
+            - Motor 0: Front-Right (Counter-Clockwise)
+            - Motor 1: Rear-Left (Counter-Clockwise)
+            - Motor 2: Front-Left (Clockwise)
+            - Motor 3: Rear-Right (Clockwise)
+
+            Motor Physical Layout:
+            - Longitudinal spacing: 274.2 mm (10.80 in)
+            - Lateral spacing: 274.2 mm (10.80 in)
+            - Propeller hub height relative to model origin: -200 mm (-7.87 in)
+
+            Control:
+            - No traditional control surfaces
+            - Attitude control via differential thrust only
+
+            Coordinate System:
+            - Aircraft oriented as multi-copter
+            - Body frame: X-backward, Y-right wing, Z-up
+        </note>
+    </fileheader>
+
+    <metrics file="metrics_spear_1s.xml"/>
+    <mass_balance file="mass_spear_1s.xml"/>
+    <ground_reactions file="gear_spear_1s.xml"/>
+    <propulsion file="propulsion_spear_1s.xml"/>
+    <system file="effectors_spear_1s.xml"/>
+    <aerodynamics file="aero_spear_1s.xml"/>
+
+    <system file="px4_default_imu_sensor"/>
+    <system file="px4_default_gps_sensor"/>
+    <system file="px4_default_baro_sensor"/>
+
+    <output name="localhost" type="SOCKET" protocol="UDP" port="5762" rate="1">
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/psi-deg</property>
+        <property>position/h-sl-meters</property>
+        <property>velocities/vt-fps</property>
+        <property>px4/acc-x</property>
+        <property>px4/acc-y</property>
+        <property>px4/acc-z</property>
+    </output>
+
+    <output name="127.0.0.1" type="SOCKET" protocol="UDP" port="5763" rate="10">
+        <property>aero/alpha-deg</property>
+        <property>aero/t022/alpha-deg</property>
+        <property>aero/t022/CL</property>
+        <property>aero/t022/CD</property>
+        <property>aero/t022/lift-lbs</property>
+        <property>aero/t022/drag-lbs</property>
+        <property>propulsion/engine[0]/thrust-lbs</property>
+        <property>propulsion/engine[1]/thrust-lbs</property>
+        <property>propulsion/engine[2]/thrust-lbs</property>
+        <property>propulsion/engine[3]/thrust-lbs</property>
+        <property>velocities/vt-fps</property>
+        <property>aero/t022/outside-tabulated-range</property>
+        <property>propulsion/engine[0]/propeller-rpm</property>
+        <property>propulsion/engine[1]/propeller-rpm</property>
+        <property>propulsion/engine[2]/propeller-rpm</property>
+        <property>propulsion/engine[3]/propeller-rpm</property>
+    </output>
+
+</fdm_config>

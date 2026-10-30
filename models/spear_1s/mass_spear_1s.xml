@@ -1,0 +1,18 @@
+<mass_balance>
+    <emptywt unit="KG"> 5.0 </emptywt>  <!-- 5.0 kg (empty, no payload) -->
+
+    <!-- CG at body geometric center -->
+    <location name="CG" unit="M">
+        <x> 0.000 </x>
+        <y> 0.000 </y>
+        <z> -0.06 </z>
+    </location>
+
+    <ixx unit="KG*M2"> 0.089989 </ixx>  <!-- roll  inertia -->
+    <iyy unit="KG*M2"> 0.089219 </iyy>  <!-- pitch inertia -->
+    <izz unit="KG*M2"> 0.0534 </izz>  <!-- yaw   inertia -->
+    <ixy unit="KG*M2"> 0.0000 </ixy>
+    <ixz unit="KG*M2"> 0.0000 </ixz>
+    <iyz unit="KG*M2"> 0.0000 </iyz>
+
+</mass_balance>
