@@ -31,6 +31,13 @@
         </barometer>
         <magnetometer>
         </magnetometer>
+        <!-- Ideal dynamic-pressure sensor. The bridge converts psf to mbar for
+             HIL_SENSOR.diff_pressure. qbar is frame-independent, so no tailsitter
+             axis rotation is needed. Pitot angular error/propwash are not modeled. -->
+        <airspeed>
+            <jsb_diff_pressure>aero/qbar-psf</jsb_diff_pressure>
+            <diff_pressure_stddev>0.01</diff_pressure_stddev> <!-- mbar (1 Pa) -->
+        </airspeed>
     </sensors>
     <actuators>
         <channel name="rotor0">

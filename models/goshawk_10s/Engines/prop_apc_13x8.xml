@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!--
+    File: prop_apc_13x8.xml
+    Author: Cheon
+    APC 13x8 fixed-pitch propeller, static-bench calibration.
+
+    Geometry:
+      Diameter: 13 in = 0.3302 m.
+      Geometric pitch: 8 in/revolution = 0.2032 m/revolution.
+      Pitch/diameter: 8/13 = 0.615384615.
+      Two blades and direct drive are retained assumptions; verify the hardware.
+      JSBSim minpitch/maxpitch are blade angles in degrees, NOT pitch in inches.
+      The representative angle at 75% radius is atan(8/(0.75*pi*13)) = 14.637383 deg.
+      Equal minpitch/maxpitch selects the fixed-pitch, one-dimensional J tables.
+
+    Source: user-supplied APC 13x8 static bench screenshot.
+    Transcribed inputs: prop_apc_13x8_static.csv (same directory).
+    Units assumed from the bench sheet: thrust in gram-force, torque in N*m,
+    voltage in V, current in A, electrical power in W. PWM is in microseconds.
+    The motor/ESC configuration must match this experiment when reproducing PWM/RPM.
+
+    PWM 1100 handling:
+      The sheet reports RPM=0 with 39.44 gf thrust and 0.0089 N*m torque.
+      Per the operator, RPM was likely below the tachometer measurement range.
+      CSV RPM is therefore EMPTY (unavailable), not a stopped-propeller sample.
+      Exclude this row from ALL RPM-based fits. Its derived zero shaft power,
+      zero efficiency and division-by-zero thrust coefficient are not measurements
+      of valid zero-output operation. No replacement RPM is fabricated.
+
+    Static calibration, using all nine measured-RPM rows (PWM 1200 to 1900):
+      Assumed air density rho = 1.225 kg/m^3; ambient density was not supplied.
+      g = 9.80665 m/s^2, D = 0.3302 m, n = RPM/60 revolutions/s.
+      T = thrust_gf * g/1000 [N].
+      P_shaft = torque_nm * 2*pi*n [W], NOT the electrical input power.
+      CT = T/(rho*n^2*D^4), CP = P_shaft/(rho*n^3*D^5).
+      Fit T against n^2 and P_shaft against n^3 independently through the origin:
+        CT(0) = sum(n^2*T) / (rho*D^4*sum(n^4)) = 0.079725849.
+        CP(0) = sum(n^3*P_shaft) / (rho*D^5*sum(n^6)) = 0.040192093.
+      The sheet's coefficient/RPS/efficiency columns are not fitting inputs;
+      coefficients are recomputed from the measured RPM, thrust and torque.
+      A single static coefficient cannot reproduce RPM-dependent scatter exactly:
+      thrust RMSE is about 65.27 gf, max relative error about 9.42% over fitted rows.
+      Recalibrate if actual bench density or measurement units differ.
+
+    Highest measured point (not a certified maximum rating or a 100% PWM point):
+      PWM 1900, 8774.90 RPM, 2544.13 gf, 0.6728 N*m, 22.43 V, 32.47 A,
+      728.61 W electrical input; recomputed shaft power approximately 618.24 W.
+      Model at this RPM and rho: approximately 2532.24 gf and 604.55 W shaft power.
+      The folder name goshawk_10s does not mean these are 10S-voltage measurements.
+      This experiment spans 22.43 to 23.79 V; do not extrapolate to 10S unvalidated.
+
+    Advance-ratio tables:
+      J = V/(n*D). Only J=0 is bench-calibrated.
+      J>0 is a PROVISIONAL estimate, not measured forward-flight performance.
+      Reuse the normalized shape of prop_apc_12x6.xml, with J stretched by
+      (8/13)/(6/12) = 16/13, and coefficients scaled to the fitted static values:
+        J_new = J_12x6 * 16/13.
+        CT_new = CT_12x6 / 0.09292 * CT(0).
+        CP_new = CP_12x6 / 0.04067 * CP(0).
+      This pitch-ratio scaling is only a placeholder. Windmilling, negative J,
+      cruise efficiency, and operation outside the measured RPM range are unverified.
+
+    Propeller-only model: PWM-to-RPM, ESC behavior, motor losses and voltage sag
+    are not calibrated here. APC 13x8 is confirmed hardware and this file is
+    selected by all four thrusters in propulsion_goshawk_10s.xml.
+-->
+<propeller name="prop_apc_13x8">
+    <!-- Unmeasured inertia: retain the previous 12x6 placeholder until mass/inertia
+         is measured. This value is NOT a calibrated 13x8 transient response. -->
+    <ixx unit="SLUG*FT2"> 0.0002 </ixx>
+    <diameter unit="IN"> 13 </diameter>
+    <numblades> 2 </numblades>
+    <gearratio> 1.0 </gearratio>
+
+    <!-- Fixed blade angle in degrees at 75% radius; geometric pitch is 8 inches. -->
+    <minpitch> 14.637383 </minpitch>
+    <maxpitch> 14.637383 </maxpitch>
+    <minrpm> 0 </minrpm>
+    <!-- Measured upper reference only: maxrpm is a governor setting, not a hard
+         RPM clamp for this fixed-pitch model. No constant-speed governor. -->
+    <maxrpm> 8774.90 </maxrpm>
+    <constspeed> 0 </constspeed>
+
+    <!-- Dimensionless CT versus J: static fit at J=0, estimated shape elsewhere. -->
+    <table name="C_THRUST" type="internal">
+        <tableData>
+            0.000000  0.079725849
+            0.061538  0.076208028
+            0.123077  0.072209723
+            0.184615  0.067739516
+            0.246154  0.062797405
+            0.307692  0.057383392
+            0.369231  0.051488896
+            0.430769  0.045131077
+            0.492308  0.038301355
+            0.553846  0.030991150
+            0.615385  0.023217622
+            0.676923  0.014963612
+            0.738462  0.006246278
+            0.800000  -0.002951538
+            0.861538  -0.012621257
+        </tableData>
+    </table>
+
+    <!-- Dimensionless CP uses SHAFT power, not battery electrical input. -->
+    <table name="C_POWER" type="internal">
+        <tableData>
+            0.000000  0.040192093
+            0.061538  0.041298932
+            0.123077  0.041921529
+            0.184615  0.042059884
+            0.246154  0.041713997
+            0.307692  0.040873985
+            0.369231  0.039549731
+            0.430769  0.037731353
+            0.492308  0.035438615
+            0.553846  0.032651752
+            0.615385  0.029380647
+            0.676923  0.025615418
+            0.738462  0.021375829
+            0.800000  0.016642116
+            0.861538  0.011424160
+            0.923077  0.005712080
+            0.984615  -0.000484242
+        </tableData>
+    </table>
+</propeller>

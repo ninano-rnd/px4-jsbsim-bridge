@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <initialize name="Joma">
-  <latitude type="geodetic" unit="DEG"> 36.0800730 </latitude>
-  <longitude unit="DEG"> 128.1197551 </longitude>
+  <latitude type="geodetic" unit="DEG"> 36.0778142 </latitude>
+  <longitude unit="DEG"> 128.1189662 </longitude>
   <altitude unit="M"> 0.5 </altitude>
   <elevation unit="M"> 95 </elevation>
   <vt unit="FT/SEC">      0 </vt>
   <gamma unit="DEG">      0.0 </gamma>
   <phi unit="DEG">        0.0 </phi>
   <theta unit="DEG">      0.0 </theta>
-  <psi unit="DEG">        0.0 </psi>
+  <psi unit="DEG">        193.0 </psi>
 </initialize>

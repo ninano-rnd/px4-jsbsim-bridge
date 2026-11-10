@@ -1,15 +1,27 @@
 <mass_balance>
-    <!-- Realistic inertias for 4kg MTOW tailsitter -->
-    <!-- Calculated from motor positions and body geometry -->
-    <emptywt unit="LBS"> 11.0231 </emptywt> <!-- 4.0 kg -->
+    <!-- Modeled mass: 5.0 kg. Inertias below are provisional SILS estimates,
+         NOT measured Goshawk mass properties. No separate payload is added. -->
+    <emptywt unit="LBS"> 8.8184 </emptywt> <!-- 5.0 kg -->
+    <!-- <emptywt unit="LBS"> 11.0231 </emptywt> 5.0 kg8.818490487395103 -->
     <location name="CG" unit="FT">
         <x> 0.000 </x>
         <y> 0.000 </y>
-        <z> -0.6525 </z> <!-- 0.200 m × 3.28084 -->
+        <z> -0.6525 </z> <!-- -0.198882 m in structural coordinates -->
     </location>
-    <ixx unit="SLUG*FT2">  0.183 </ixx>
-    <iyy unit="SLUG*FT2">  0.074 </iyy>
-    <izz unit="SLUG*FT2">  0.177 </izz>
+    <!-- BODY axes: X = FW yaw axis, Y = FW pitch axis, -Z = FW roll axis.
+         Keep the empirically selected FW roll inertia Izz = 0.799 slug*ft^2.
+         Use a wing-dominated distribution (Ixx near Izz, smaller Iyy) as a
+         starting assumption, with zero products of inertia. For 5 kg these
+         values imply RMS mass-coordinate spreads about CG of
+         x/y/z = 0.142/0.443/0.083 m (not the radii of gyration);
+         validate with CAD or a pendulum test before treating them as physical data.
+         1 slug*ft^2 = 1.35581795 kg*m^2:
+           Ixx = 1.0169, Iyy = 0.1356, Izz = 1.0833 kg*m^2.
+         All diagonal moments are positive and satisfy the triangle inequalities;
+         in particular Izz < Ixx + Iyy (0.799 < 0.850). -->
+    <ixx unit="SLUG*FT2">  0.750 </ixx>
+    <iyy unit="SLUG*FT2">  0.100 </iyy>
+    <izz unit="SLUG*FT2">  0.799 </izz>
     <ixy unit="SLUG*FT2">  0.000 </ixy>
     <ixz unit="SLUG*FT2">  0.000 </ixz>
     <iyz unit="SLUG*FT2">  0.000 </iyz>

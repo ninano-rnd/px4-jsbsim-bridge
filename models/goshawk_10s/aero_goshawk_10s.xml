@@ -1,21 +1,24 @@
 <?xml version="1.0" ?>
 <!--
     Aerodynamics for Goshawk 10s tailsitter VTOL
-    Static CL/CD/CM from the user-supplied CFD table (AoA FW, -140..0 deg).
+    CL/CD use the supplied CFD table (FW AoA -50..90 deg, stored at BODY
+    alpha -140..0 deg). Active CM uses the earlier -90..90 deg FW table,
+    stored at BODY alpha -180..0 deg; the newer CFD CM remains commented out.
     Remaining sideslip and rate derivatives are inherited Rascal estimates,
     NOT validated by this CFD table. Geometry used for dimensionalization:
-      - Wing area: 0.2 m² (2.15 ft²)
-      - Wingspan: 1.2 m (3.94 ft)
-      - Mean chord: 0.1667 m (0.547 ft)
-      - AR: 7.20
-      - MTOW: 4 kg (8.82 lbs)
+      - Wing reference area: 0.4800 m² (5.1667 ft²)
+      - Wingspan: 1.2 m (3.9370 ft)
+      - Reference chord: 0.2000 m (0.6562 ft)
+      - AR: 3.00 (span squared / reference area)
+      - Modeled mass: 5 kg (11.0231 lbs)
       - No tail surfaces (differential thrust for yaw)
     Uses JSBSim standard units: qbar-psf, Sw-sqft, bw-ft, cbarw-ft.
-    Assumes CFD AoA(FW) equals native aero/alpha-deg; no angle shift applied.
-    Confirm CFD angle/sign conventions and reference area/chord against metrics.
+    Table abscissas already include the -90 deg FW-to-BODY alpha shift.
+    No additional angle shift is applied at runtime. Pitch moment sign is unchanged.
+    Confirm CFD normalization uses the same reference area/chord as metrics.
     CM is applied about AERORP; confirm the CFD moment reference point.
     JSBSim adds AERORP-to-CG force moments separately.
-    Outside -140..0 deg, tables clamp to endpoint values (not validated CFD).
+    Outside each table's alpha range, values clamp to endpoints (unvalidated).
     No synthetic +10 deg zero-coefficient row or reverse-flow data are added.
     FW axes relative to JSBSim BODY: X_FW=-Z_BODY, Y_FW=Y_BODY, Z_FW=X_BODY.
     Thus p_FW=-r_BODY, q_FW=q_BODY, r_FW=p_BODY, and body moments are
@@ -39,27 +42,27 @@
                 <table>
                     <independentVar lookup="row">aero/alpha-deg</independentVar>
                     <tableData>
-                        -140 1.0292
-                        -130 0.8572
-                        -120 0.6476
-                        -110 0.4150
-                        -100 0.1606
-                        -98  0.0955
-                        -94  0.0456
-                        -90   0.0358
-                        -86   0.0470
-                        -82   0.0756
-                        -80  0.0968
-                        -78  0.1265
-                        -74  0.2150
-                        -70  0.3093
-                        -60  0.6145
-                        -50  0.8305
-                        -40  1.0125
-                        -30  1.1418
-                        -20  1.1517
-                        -10  0.8838
-                        0  0.8336
+                        -140    1.0292
+                        -130    0.8572
+                        -120    0.6476
+                        -110    0.415
+                        -100    0.1606
+                        -98     0.0955
+                        -94     0.0456
+                        -90     0.0358
+                        -86     0.047
+                        -82     0.0756
+                        -80     0.0968
+                        -78     0.1265
+                        -74     0.215
+                        -70     0.3093
+                        -60     0.6145
+                        -50     0.8305
+                        -40     1.0125
+                        -30     1.1418
+                        -20     1.1517
+                        -10     0.8838
+                        0       0.8336
                     </tableData>
                 </table>
             </product>
@@ -90,27 +93,27 @@
                 <table>
                     <independentVar lookup="row">aero/alpha-deg</independentVar>
                     <tableData>
-                        -140 -0.7988
-                        -130 -0.8956
-                        -120 -0.9020
-                        -110 -0.8099
-                        -100 -0.6218
-                        -98  -0.6381
-                        -94  -0.3227
-                        -90    0.0837
-                        -86    0.4809
-                        -82    0.8637
-                        -80   1.0404
-                        -78   1.1382
-                        -74   1.1302
-                        -70   1.1776
-                        -60   1.0021
-                        -50   0.9445
-                        -40   0.8272
-                        -30   0.6552
-                        -20   0.4172
-                        -10   0.1734
-                        0   0.0233
+                        -140    -0.7988
+                        -130    -0.8956
+                        -120    -0.902
+                        -110    -0.8099
+                        -100    -0.6218
+                        -98     -0.6381
+                        -94     -0.3227
+                        -90     0.0837
+                        -86     0.4809
+                        -82     0.8637
+                        -80     1.0404
+                        -78     1.1382
+                        -74     1.1302
+                        -70     1.1776
+                        -60     1.0021
+                        -50     0.9445
+                        -40     0.8272
+                        -30     0.6552
+                        -20     0.4172
+                        -10     0.1734
+                        0       0.0233
                     </tableData>
                 </table>
             </product>

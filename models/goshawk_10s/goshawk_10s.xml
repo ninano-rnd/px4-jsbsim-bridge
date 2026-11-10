@@ -18,22 +18,21 @@
 
             Aircraft Specifications:
             - Type: Tailsitter VTOL quadplane
-            - MTOW: 4 kg (8.82 lbs)
-            - Payload: 1 kg (2.21 lbs)
-            - Wing Span: 1.2 m (3.94 ft)
-            - Wing Area: 0.2 m² (2.15 ft²)
-            - Mean Chord: 0.1667 m (0.547 ft)
-            - Aspect Ratio: 7.20
+            - Modeled mass: 5 kg (11.0231 lbs); no separate payload mass
+            - Wing Span: 1.2 m (3.9370 ft)
+            - Wing Reference Area: 0.4800 m² (5.1667 ft²)
+            - Reference Chord: 0.2000 m (0.6562 ft)
+            - Aspect Ratio: 3.00
             - Cruise Speed: 22 m/s (79.2 km/h)
             - Endurance: 30 min
             - Max Altitude: 500 m
 
             Propulsion:
             - 4x T-Motor AT3520 550KV brushless motors
-            - Max thrust per motor: 11.114 kg (109.1 N)
-            - Total max thrust: 44.456 kg (436.4 N)
-            - Max power per motor: 2685 W
-            - Battery: 12S LiPo (46V nominal)
+            - APC 13x8 propellers (confirmed hardware)
+            - Static propeller coefficients fitted to the supplied bench data
+            - Forward-flight propeller curves remain provisional
+            - Motor model supply: 25.0 V (maxvolts); voltage sag not modeled
 
             Motor Configuration (X-layout):
             - Motor 0: Front-Right (Counter-Clockwise)
@@ -42,8 +41,8 @@
             - Motor 3: Aft-Right (Clockwise)
 
             Motor Physical Layout:
-            - Longitudinal spacing: 614.11 mm (24.18 in)
-            - Lateral spacing: 1545.48 mm (60.85 in)
+            - BODY X spacing: 396 mm (15.59 in)
+            - BODY Y spacing: 426 mm (16.77 in)
 
             Control:
             - No traditional control surfaces
@@ -52,8 +51,9 @@
 
             Coordinate System:
             - Aircraft oriented as tailsitter (fuselage vertical in hover)
-            - Body frame: X-forward, Y-right wing, Z-down
-            - Hover orientation: pitch -90 degrees from level flight
+            - Hover BODY frame: X-forward, Y-right, Z-down
+            - Fixed-wing nose/thrust direction: -Z_BODY
+            - Level FW flight: BODY pitch -90 degrees from level hover
         </note>
     </fileheader>
 
@@ -67,6 +67,8 @@
     <system file="px4_default_imu_sensor"/>
     <system file="px4_default_gps_sensor"/>
     <system file="px4_default_baro_sensor"/>
+    <!-- Airspeed: configs/goshawk_10s.xml enables the bridge's pressure sensor
+         using native aero/qbar-psf (no separate JSBSim sensor system required). -->
 
     <!-- Attitude debug output via UDP (port 5762) — remove after confirming initial pose -->
     <output name="localhost" type="SOCKET" protocol="UDP" port="5762" rate="1">

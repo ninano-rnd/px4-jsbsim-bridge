@@ -1,7 +1,7 @@
 <!--
     Propulsion for goshawk_10s tailsitter VTOL (X-layout)
     Motor: T-Motor AT3520 550KV (file: Engines/T-MOTOR_AT3520.xml)
-    Propeller: VSC 12×6 (file: Engines/prop_vsc_12x6.xml)
+    Propeller: APC 13x8, confirmed hardware (file: Engines/prop_apc_13x8.xml)
 
     설계 원칙:
       JSBSim 날개 양력 계산을 위해 고정익 형상(하늘 바라보기)으로 모델링.
@@ -17,7 +17,7 @@
       Left motor (날개 좌측):  y = -0.213 m
       Z 좌표: 기수에서 모터까지 거리 (모든 모터 동일, z = -0.120 m)
 
-    추력 방향: Z+ (위) → thruster pitch = 90
+    추력 방향: BODY -Z (호버 기준 위쪽) → thruster pitch = 90
 
     Rotation (X-layout, 위에서 내려다볼 때):
       Motor 0 FR: Counter-Clockwise (sense =  1)
@@ -29,7 +29,7 @@
 
     <!-- Motor 0: Front-Right (Counter-Clockwise) -->
     <engine file="T-MOTOR_AT3520" name="motor_0_FR">
-        <thruster file="prop_vsc_12x6">
+        <thruster file="prop_apc_13x8">
             <location unit="M">
                 <x> -0.198 </x>  <!-- 기수에서 모터까지 거리 -->
                 <y>  0.213 </y>  <!-- Right -->
@@ -37,7 +37,7 @@
             </location>
             <orient unit="DEG">
                 <roll>   0 </roll>
-                <pitch>  90 </pitch>  <!-- Thrust along +Z (위) -->
+                <pitch>  90 </pitch>  <!-- Thrust along BODY -Z -->
                 <yaw>    0 </yaw>
             </orient>
             <sense>  1 </sense>   <!-- Counter-Clockwise -->
@@ -47,7 +47,7 @@
 
     <!-- Motor 1: Aft-Left (Counter-Clockwise) -->
     <engine file="T-MOTOR_AT3520" name="motor_1_AL">
-        <thruster file="prop_vsc_12x6">
+        <thruster file="prop_apc_13x8">
             <location unit="M">
                 <x>  0.198 </x>
                 <y> -0.213 </y>  <!-- Left -->
@@ -65,7 +65,7 @@
 
     <!-- Motor 2: Front-Left (Clockwise) -->
     <engine file="T-MOTOR_AT3520" name="motor_2_FL">
-        <thruster file="prop_vsc_12x6">
+        <thruster file="prop_apc_13x8">
             <location unit="M">
                 <x> -0.198 </x>
                 <y> -0.213 </y>  <!-- Left -->
@@ -83,7 +83,7 @@
 
     <!-- Motor 3: Aft-Right (Clockwise) -->
     <engine file="T-MOTOR_AT3520" name="motor_3_AR">
-        <thruster file="prop_vsc_12x6">
+        <thruster file="prop_apc_13x8">
             <location unit="M">
                 <x>  0.198 </x>
                 <y>  0.213 </y>  <!-- Right -->

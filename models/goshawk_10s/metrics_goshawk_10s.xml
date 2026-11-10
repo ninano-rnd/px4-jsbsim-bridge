@@ -1,4 +1,7 @@
 <metrics>
+    <!-- Reference geometry: S = 0.4800 m^2, span = 1.2000 m,
+         reference chord = 0.2000 m, AR = span^2/S = 3.00.
+         CFD coefficient normalization must use these same reference values. -->
 	<wingarea unit="FT2">  5.1667 </wingarea>
 	<wingspan unit="FT">   3.9370  </wingspan>
 	<chord unit="FT">      0.6562 </chord>
